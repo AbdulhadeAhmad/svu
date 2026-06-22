@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>ITE Subjects Graph - SVU</title>
-  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="stylesheet" href="style.css?v=21" />
 </head>
 <body>
   <header>
@@ -21,6 +21,8 @@
   <div class="controls">
     <input type="text" id="search" placeholder="Search by code or name…" />
     <div class="cat-filters" id="catFilters"></div>
+    <button id="langToggle" class="theme-toggle" title="Toggle language" type="button" aria-label="Toggle language">ع</button>
+    <button id="themeToggle" class="theme-toggle" title="Toggle dark/light theme" type="button" aria-label="Toggle theme">🌙</button>
     <button id="importBtn" class="control-btn" title="Import your exam/assignments table from SVU">
       <span class="icon">↓</span> Import
     </button>
@@ -73,14 +75,14 @@
       <div class="modal-footer">
         <button class="btn btn-ghost" id="modalClearBtn" hidden>Clear data</button>
         <span class="modal-spacer"></span>
-        <button class="btn btn-secondary" id="modalCancelBtn">Cancel</button>
-        <button class="btn btn-primary" id="modalParseBtn">Parse</button>
-        <button class="btn btn-success" id="modalApplyBtn" hidden>Apply</button>
+        <button class="btn btn-secondary" id="modalCancelBtn" data-i18n="modalCancel">Cancel</button>
+        <button class="btn btn-primary" id="modalParseBtn" data-i18n="modalParse">Parse</button>
+        <button class="btn btn-success" id="modalApplyBtn" data-i18n="modalApply" hidden>Apply</button>
       </div>
     </div>
   </div>
 
-  <script src="data.js?v=11"></script>
-  <script src="app.js?v=11"></script>
+  <script src="data.js?v=21"></script>
+  <script src="app.js?v=21"></script>
 </body>
 </html>

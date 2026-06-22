@@ -143,11 +143,11 @@ const COLORS = {
 };
 
 const CATEGORY_LABELS = {
-  general: "General",
-  basic: "Basic",
-  SE: "Software Eng.",
-  AI: "Artificial Intelligence",
-  SCN: "Systems & Networks"
+  general: { en: "General", ar: "عام" },
+  basic: { en: "Basic", ar: "أساسي" },
+  SE: { en: "Software Eng.", ar: "هندسة برمجيات" },
+  AI: { en: "Artificial Intelligence", ar: "ذكاء اصطناعي" },
+  SCN: { en: "Systems & Networks", ar: "أنظمة وشبكات" }
 };
 
 // =====================================================================

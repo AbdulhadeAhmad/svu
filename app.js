@@ -19,6 +19,182 @@
 // the per-component grade doesn't matter for unlocking.
 const STORAGE_KEY = "svu_ite_progress_v2";
 const FILTERS_STORAGE_KEY = "svu_ite_filters_v1";
+const THEME_STORAGE_KEY = "svu_ite_theme_v1";
+const LANG_STORAGE_KEY = "svu_ite_lang_v1";
+
+const TRANSLATIONS = {
+  en: {
+    headerTitle: "ITE Subjects Prerequisite Graph",
+    headerSub: "Syrian Virtual University · Bachelor in Information Technology Engineering",
+    searchPlaceholder: "Search by code or name…",
+    importBtn: "Import",
+    reimportBtn: "Re-import",
+    yourProgress: "Your Progress",
+    passed: "Passed",
+    failed: "Failed",
+    inProgress: "In progress",
+    courses: "Courses",
+    availableNext: "Available next term",
+    availableHint: "All prerequisites met — you can register for this.",
+    yourStatus: "Your Status",
+    allAttempts: "All Attempts",
+    prerequisites: "Prerequisites",
+    concurrent: "Concurrent With",
+    unlocks: "Unlocks",
+    additionalReq: "Additional Requirement",
+    manualOverride: "Manual Override",
+    manuallyMarked: "Manually marked as passed",
+    manualRemove: "Remove",
+    manualAdd: "Mark as passed",
+    manualHintOn: "Treated as passed even without an attempt — useful for transferred credits.",
+    manualHintOff: "Use this if you completed the subject elsewhere (e.g. transferred credit) and it doesn't appear in your import.",
+    notManuallyMarked: "Not manually marked",
+    statusPassed: "✓ Passed",
+    statusFailed: "✗ Failed",
+    statusInProgress: "⏳ In progress",
+    statusAttempted: "Attempted",
+    emptyText: "Click on a subject to see its details, prerequisites, and what it unlocks.",
+    emptyImport: "↓ Import Exam History",
+    credits: "Credits",
+    level: "Level",
+    allSpecializations: "All specializations",
+    specialRule: "⚠️ Special rule",
+    concurrent2: "🔄 Concurrent",
+    yourProgressTitle: "Your Progress",
+    noPrereq: "No prerequisites",
+    noDownstream: "No downstream courses",
+    importTitle: "Import Exam History",
+    modalParse: "Parse",
+    modalApply: "Apply",
+    modalCancel: "Cancel",
+    clear: "Clear",
+    failedToLoad: "Failed to load subjects.",
+    hardRefreshHint: "Check the browser console (F12) for details. Try a hard refresh (Ctrl+Shift+R)."
+  },
+  ar: {
+    headerTitle: "مخطط متطلبات مواد هندسة المعلوماتية",
+    headerSub: "الجامعة الافتراضية السورية · إجازة في الهندسة المعلوماتية",
+    searchPlaceholder: "ابحث برمز أو اسم المادة…",
+    importBtn: "استيراد",
+    reimportBtn: "إعادة الاستيراد",
+    yourProgress: "تقدّمك",
+    passed: "منجزة",
+    failed: "راسبة",
+    inProgress: "قيد الدراسة",
+    courses: "المواد",
+    availableNext: "المتاح الفصل القادم",
+    availableHint: "كل المتطلبات محققة — يمكنك التسجيل بها.",
+    yourStatus: "حالتك",
+    allAttempts: "كل المحاولات",
+    prerequisites: "المتطلبات",
+    concurrent: "مشترك مع",
+    unlocks: "يفتح",
+    additionalReq: "شرط إضافي",
+    manualOverride: "تجاوز يدوي",
+    manuallyMarked: "محدّدة يدوياً كمنجزة",
+    manualRemove: "إزالة",
+    manualAdd: "تحديد كمنجزة",
+    manualHintOn: "تُعتبر منجزة حتى دون محاولة — مفيد للاعتمادات المنقولة.",
+    manualHintOff: "استخدم هذا إذا أتممت المادة في مكان آخر (مثلاً نقل اعتماد) ولا تظهر في استيرادك.",
+    notManuallyMarked: "غير محددة يدوياً",
+    statusPassed: "✓ منجزة",
+    statusFailed: "✗ راسبة",
+    statusInProgress: "⏳ قيد الدراسة",
+    statusAttempted: "تمت المحاولة",
+    emptyText: "انقر على مادة لعرض تفاصيلها ومتطلباتها وما تفتحه.",
+    emptyImport: "↓ استيراد سجل الامتحانات",
+    credits: "ساعات",
+    level: "مستوى",
+    allSpecializations: "كل الاختصاصات",
+    specialRule: "⚠️ قاعدة خاصة",
+    concurrent2: "🔄 مشترك",
+    yourProgressTitle: "تقدّمك",
+    noPrereq: "لا متطلبات",
+    noDownstream: "لا تفتح مواد",
+    importTitle: "استيراد سجل الامتحانات",
+    modalParse: "تحليل",
+    modalApply: "تطبيق",
+    modalCancel: "إلغاء",
+    clear: "مسح",
+    failedToLoad: "فشل تحميل المواد.",
+    hardRefreshHint: "تحقق من وحدة تحكم المتصفح (F12) للتفاصيل. جرب تحديث قسري (Ctrl+Shift+R)."
+  }
+};
+
+let currentLang = "en";
+function t(key) { return (TRANSLATIONS[currentLang] || TRANSLATIONS.en)[key] || key; }
+
+function applyLang(lang) {
+  currentLang = (lang === "ar") ? "ar" : "en";
+  const html = document.documentElement;
+  html.lang = currentLang;
+  // Keep layout LTR — only translate the text, don't flip the layout
+  html.dir = "ltr";
+  document.body.classList.remove("rtl");
+
+  // Update static UI strings
+  document.querySelector("header h1").textContent = t("headerTitle");
+  document.querySelector("header p").textContent = t("headerSub");
+  const search = document.getElementById("search");
+  if (search) search.placeholder = t("searchPlaceholder");
+  const importBtn = document.getElementById("importBtn");
+  if (importBtn && importBtn.dataset.state !== "applying") {
+    const hasData = userProgress && userProgress.parsed;
+    importBtn.innerHTML = `<span class="icon">↓</span> ${hasData ? t("reimportBtn") : t("importBtn")}`;
+  }
+  const emptyEl = document.getElementById("infoEmpty");
+  if (emptyEl) {
+    const emptyText = emptyEl.querySelector(".empty-text");
+    const emptyBtn = emptyEl.querySelector("#emptyImportBtn");
+    if (emptyText) emptyText.textContent = t("emptyText");
+    if (emptyBtn) emptyBtn.textContent = t("emptyImport");
+  }
+  const summaryToggleLabel = document.querySelector(".summary-toggle-label");
+  if (summaryToggleLabel) summaryToggleLabel.textContent = t("yourProgressTitle");
+  const importTitle = document.getElementById("importTitle");
+  if (importTitle) importTitle.textContent = t("importTitle");
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (TRANSLATIONS[currentLang][key]) el.textContent = TRANSLATIONS[currentLang][key];
+  });
+
+  // Update the language toggle button label
+  const langBtn = document.getElementById("langToggle");
+  if (langBtn) langBtn.textContent = currentLang === "ar" ? "EN" : "ع";
+
+  // Re-render anything that depends on language
+  buildCategoryFilters();
+  if (typeof render === "function") render();
+  renderImportSummary();
+  const selected = document.querySelector(".node.selected");
+  if (selected) selectSubject(selected.getAttribute("data-id"));
+
+  try { localStorage.setItem(LANG_STORAGE_KEY, currentLang); } catch (e) { /* ignore */ }
+}
+
+function loadLang() {
+  try {
+    const saved = localStorage.getItem(LANG_STORAGE_KEY);
+    if (saved === "ar" || saved === "en") return saved;
+  } catch (e) { /* ignore */ }
+  return "en";
+}
+
+function applyTheme(theme) {
+  const t = theme === "dark" ? "dark" : "light";
+  document.body.classList.toggle("dark", t === "dark");
+  const btn = document.getElementById("themeToggle");
+  if (btn) btn.textContent = t === "dark" ? "☀" : "🌙";
+  try { localStorage.setItem(THEME_STORAGE_KEY, t); } catch (e) { /* ignore */ }
+}
+
+function loadTheme() {
+  try {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === "dark" || saved === "light") return saved;
+  } catch (e) { /* ignore */ }
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 const TERM_NAMES = {
   S22: "Spring 2022", F22: "Fall 2022",
   S23: "Spring 2023", F23: "Fall 2023",
@@ -442,49 +618,142 @@ function buildLevels() {
   return levels;
 }
 
-// Barycenter heuristic — minimizes edge crossings between adjacent layers.
-// Alternating forward (prereq → subject) and backward (subject → dependent) sweeps.
+// Barycenter heuristic (MEDIAN) — minimizes edge crossings between adjacent
+// layers. Median is more robust than mean for crossing reduction.
+//
+// Strategy:
+//   1. Seed initial ordering with the topological level index, then a
+//      degree-based tie-breaker so high-fanout prereqs are at the top.
+//   2. Alternate forward and backward sweeps using MEDIAN barycenter.
+//   3. Stop early if a sweep produces no change (convergence).
 function reduceCrossings(levels) {
   const maxLevel = Math.max(...Object.keys(levels).map(Number));
-  const ITERATIONS = 24;
+  const MAX_ITERS = 40;
 
-  for (let it = 0; it < ITERATIONS; it++) {
+  for (let it = 0; it < MAX_ITERS; it++) {
+    let changed = false;
+
     // Forward pass
     for (let l = 1; l <= maxLevel; l++) {
       const prevPos = {};
       levels[l - 1].forEach((id, i) => prevPos[id] = i);
-      levels[l].sort((a, b) => barycenter(a, b, prevPos, "prereq"));
+      if (sortByBarycenter(levels[l], prevPos, "prereq")) changed = true;
     }
     // Backward pass
     for (let l = maxLevel - 1; l >= 0; l--) {
       const nextPos = {};
       levels[l + 1].forEach((id, i) => nextPos[id] = i);
-      levels[l].sort((a, b) => barycenter(a, b, nextPos, "dependent"));
+      if (sortByBarycenter(levels[l], nextPos, "dependent")) changed = true;
     }
+
+    if (!changed) break;
   }
+}
+
+// Stable sort with a tie-breaker so equal-barycenter nodes keep their
+// relative order and isolated nodes fall back to alphabetical.
+function sortByBarycenter(arr, neighborPos, kind) {
+  const scored = arr.map((id, originalIdx) => {
+    const s = subjectsById[id];
+    const neighbors = kind === "prereq" ? (s.prereq || []) : (dependents[id] || []);
+    const positions = neighbors.map(n => neighborPos[n]).filter(p => p !== undefined);
+    const score = positions.length ? median(positions) : Infinity;
+    return { id, score, originalIdx };
+  });
+  scored.sort((a, b) => {
+    if (a.score !== b.score) return a.score - b.score;
+    return a.originalIdx - b.originalIdx;
+  });
+  const before = arr.join(",");
+  arr.length = 0;
+  scored.forEach(x => arr.push(x.id));
+  return arr.join(",") !== before;
+}
+
+function median(arr) {
+  if (!arr.length) return 0;
+  const sorted = arr.slice().sort((x, y) => x - y);
+  const mid = sorted.length >> 1;
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+}
+
+// Sifting pass: for each layer, try every node at every position and keep
+// the assignment with the smallest sum of edge lengths. Helps with the
+// long curved edges common in dense graphs.
+function siftLayers(levels) {
+  const lvlKeys = Object.keys(levels).map(Number).sort((a, b) => a - b);
+  lvlKeys.forEach(l => {
+    const arr = levels[l];
+    let best = arr.slice();
+    let bestCost = layerCost(best, l, levels);
+    for (let pass = 0; pass < 2; pass++) {
+      for (let i = 0; i < arr.length; i++) {
+        const id = arr[i];
+        // Try moving `id` to every other position
+        for (let j = 0; j < arr.length; j++) {
+          if (j === i) continue;
+          const trial = arr.slice();
+          trial.splice(i, 1);
+          trial.splice(j, 0, id);
+          const cost = layerCost(trial, l, levels);
+          if (cost < bestCost) {
+            best = trial;
+            bestCost = cost;
+            arr.length = 0;
+            best.forEach(x => arr.push(x));
+            i = -1; // restart
+            break;
+          }
+        }
+      }
+    }
+  });
+}
+
+// Cost = sum of edge lengths crossing this layer (proxy for total edge
+// length, ignoring the layer's own nodes' internal edges).
+function layerCost(arr, lvl, levels) {
+  const pos = {};
+  arr.forEach((id, i) => pos[id] = i);
+  let cost = 0;
+  const neighborsLayers = [];
+  if (levels[lvl - 1]) neighborsLayers.push(levels[lvl - 1]);
+  if (levels[lvl + 1]) neighborsLayers.push(levels[lvl + 1]);
+  neighborsLayers.forEach(nbrLayer => {
+    nbrLayer.forEach(nid => {
+      const s = subjectsById[nid];
+      if (!s) return;
+      // Edges from nid to a node in `arr`:
+      (s.prereq || []).forEach(p => {
+        if (pos[p] !== undefined) cost += Math.abs(pos[p] - (nbrLayer.indexOf(nid)));
+      });
+      (dependents[nid] || []).forEach(d => {
+        if (pos[d] !== undefined) cost += Math.abs(pos[d] - (nbrLayer.indexOf(nid)));
+      });
+    });
+  });
+  return cost;
 }
 
 function barycenter(a, b, neighborPos, kind) {
   const sa = subjectsById[a];
   const sb = subjectsById[b];
-  const neighbors = kind === "prereq" ? sa.prereq : (dependents[a] || []);
-  const neighborsB = kind === "prereq" ? sb.prereq : (dependents[b] || []);
+  const neighbors = kind === "prereq" ? (sa.prereq || []) : (dependents[a] || []);
+  const neighborsB = kind === "prereq" ? (sb.prereq || []) : (dependents[b] || []);
   const positionsA = neighbors.map(n => neighborPos[n]).filter(p => p !== undefined);
   const positionsB = neighborsB.map(n => neighborPos[n]).filter(p => p !== undefined);
 
-  // Preserve relative order for nodes with no cross-layer connections
   if (positionsA.length === 0 && positionsB.length === 0) return 0;
   if (positionsA.length === 0) return 1;
   if (positionsB.length === 0) return -1;
 
-  const avgA = positionsA.reduce((s, v) => s + v, 0) / positionsA.length;
-  const avgB = positionsB.reduce((s, v) => s + v, 0) / positionsB.length;
-  return avgA - avgB;
+  return median(positionsA) - median(positionsB);
 }
 
 function buildLayout() {
   const levels = buildLevels();
   reduceCrossings(levels);
+  siftLayers(levels);
 
   const positions = {};
   let maxRows = 0;
@@ -498,10 +767,85 @@ function buildLayout() {
     });
   });
 
+  // Force-directed relaxation: nodes repel each other, edges pull connected
+  // nodes closer. This breaks out of the strict row layout so vertical
+  // spacing relaxes and edges feel less crowded.
+  relaxPositions(positions, levels);
+
   const maxLevel = Math.max(...Object.keys(levels).map(Number));
+  let totalHeight = 0;
+  Object.values(positions).forEach(p => { if (p.y > totalHeight) totalHeight = p.y; });
+  totalHeight += ROW_HEIGHT + PADDING * 2;
   const totalWidth = (maxLevel + 1) * COL_WIDTH + PADDING;
-  const totalHeight = maxRows * ROW_HEIGHT + PADDING * 2;
   return { positions, levels, totalWidth, totalHeight };
+}
+
+// Gentle Y-relaxation: for each layer, move each node toward the
+// median Y of its connected nodes in adjacent layers. Then enforce
+// a minimum spacing so nodes don't overlap. Avoids the chaos of a
+// full force-directed approach while still letting edges breathe.
+function relaxPositions(positions, levels) {
+  const lvlKeys = Object.keys(levels).map(Number).sort((a, b) => a - b);
+
+  // First pass: collect connected positions
+  const targetY = {};
+  Object.keys(positions).forEach(id => targetY[id] = null);
+  Object.entries(positions).forEach(([id, p]) => {
+    const s = subjectsById[id];
+    if (!s) return;
+    const ys = [];
+    (s.prereq || []).forEach(p2 => {
+      if (positions[p2]) ys.push(positions[p2].y);
+    });
+    (dependents[id] || []).forEach(d => {
+      if (positions[d]) ys.push(positions[d].y);
+    });
+    targetY[id] = ys.length ? median(ys) : p.y;
+  });
+
+  // Move each layer toward its targets (smoothed, partial step)
+  lvlKeys.forEach(l => {
+    levels[l].forEach(id => {
+      const cur = positions[id].y;
+      const tgt = targetY[id];
+      if (tgt === null) return;
+      // Step 35% of the way toward target each round; do 4 rounds total
+      positions[id].y = cur + (tgt - cur) * 0.35;
+    });
+  });
+
+  // Enforce minimum vertical spacing within each layer (sweep top-down)
+  enforceMinSpacing(positions, levels);
+
+  // Second smoothing round
+  lvlKeys.forEach(l => {
+    levels[l].forEach(id => {
+      const s = subjectsById[id];
+      if (!s) return;
+      const ys = [];
+      (s.prereq || []).forEach(p2 => { if (positions[p2]) ys.push(positions[p2].y); });
+      (dependents[id] || []).forEach(d => { if (positions[d]) ys.push(positions[d].y); });
+      if (ys.length) {
+        const tgt = median(ys);
+        positions[id].y = positions[id].y + (tgt - positions[id].y) * 0.2;
+      }
+    });
+  });
+  enforceMinSpacing(positions, levels);
+}
+
+function enforceMinSpacing(positions, levels) {
+  const MIN_DY = ROW_HEIGHT - 14;
+  Object.keys(levels).forEach(l => {
+    const arr = levels[l];
+    arr.sort((a, b) => positions[a].y - positions[b].y);
+    let lastY = -Infinity;
+    arr.forEach(id => {
+      const minY = lastY + MIN_DY;
+      if (positions[id].y < minY) positions[id].y = minY;
+      lastY = positions[id].y;
+    });
+  });
 }
 
 // ===== SVG helpers =====
@@ -609,9 +953,10 @@ function render() {
       "text-anchor": "middle"
     }, [document.createTextNode(s.id)]));
 
-    // Truncated name
-    let name = s.name;
-    if (name.length > 26) name = name.slice(0, 24) + "…";
+    // Truncated name (Arabic-aware: ~18 chars max because Arabic glyphs are wider)
+    let name = currentLang === "ar" && s.nameAr ? s.nameAr : s.name;
+    const maxLen = currentLang === "ar" ? 18 : 26;
+    if (name.length > maxLen) name = name.slice(0, maxLen - 1) + "…";
     g.appendChild(el("text", {
       class: "name",
       x: NODE_W / 2, y: 30
@@ -621,7 +966,7 @@ function render() {
     g.appendChild(el("text", {
       class: "meta-text",
       x: NODE_W / 2, y: 44
-    }, [document.createTextNode(`${s.credits} CR · L${s.lvl}`)]));
+    }, [document.createTextNode(`${s.credits} ${currentLang === "ar" ? "س" : "CR"} · ${currentLang === "ar" ? "م" : "L"}${s.lvl}`)]));
 
     // Status badge (top-right)
     const bx = NODE_W - 9, by = 9;
@@ -835,7 +1180,7 @@ function renderImportSummary() {
         const catKey = sub ? sub.category : "";
         const credits = sub ? sub.credits : 0;
         const style = cat ? ` style="--chip-color:${cat.color};color:${cat.stroke};border-color:${cat.color};"` : "";
-        const creditsLabel = credits ? `<span class="chip-credits">${credits}cr</span>` : "";
+        const creditsLabel = credits ? `<span class="chip-credits">${credits}${currentLang === "ar" ? "س" : "cr"}</span>` : "";
         return `<span class="chip cat-chip-inline" data-id="${id}" data-cat="${catKey}"${style}>${id}${creditsLabel}</span>`;
       }).join("")
     : `<span class="chip empty">No new subjects available yet</span>`;
@@ -843,19 +1188,14 @@ function renderImportSummary() {
   summaryBody.innerHTML = `
     <div class="import-summary">
       <div class="import-stats">
-        <div class="import-stat passed"><span>Passed</span><span class="stat-value">${passed}</span><span class="stat-sub">${passedCredits} cr</span></div>
-        <div class="import-stat failed"><span>Failed</span><span class="stat-value">${failed}</span></div>
-        <div class="import-stat progress"><span>In progress</span><span class="stat-value">${inProgress}</span><span class="stat-sub">${inProgressCredits} cr</span></div>
-        <div class="import-stat total"><span>Courses</span><span class="stat-value">${totalCourses}</span></div>
+        <div class="import-stat passed"><span>${t("passed")}</span><span class="stat-value">${passed}</span><span class="stat-sub">${passedCredits} cr</span></div>
+        <div class="import-stat failed"><span>${t("failed")}</span><span class="stat-value">${failed}</span></div>
+        <div class="import-stat progress"><span>${t("inProgress")}</span><span class="stat-value">${inProgress}</span><span class="stat-sub">${inProgressCredits} cr</span></div>
+        <div class="import-stat total"><span>${t("courses")}</span><span class="stat-value">${totalCourses}</span></div>
       </div>
 
-      <h3 class="subsection-h3">Available next term <span class="h3-count" id="availableCount">${availableList.length}</span></h3>
+      <h3 class="subsection-h3">${t("availableNext")} <span class="h3-count" id="availableCount">${availableList.length}</span></h3>
       <div class="available-list" id="availableList">${availableChips}</div>
-
-      <div class="summary-actions">
-        <button id="reImportBtn" class="btn btn-secondary">↻ Re-import</button>
-        <button id="clearImportBtn" class="btn btn-ghost">✕ Clear</button>
-      </div>
     </div>
   `;
 
@@ -879,8 +1219,8 @@ function selectSubject(id) {
   if (!s) return;
   const cat = currentFaculty.categories[s.category] || currentFaculty.categories.basic;
   const color = { fill: cat.color, stroke: cat.stroke };
-  const catLabel = cat.label;
-  const specList = s.spec && s.spec.length ? s.spec.join(", ") : "All specializations";
+  const catLabel = (cat.label && (cat.label[currentLang] || cat.label.en)) || cat.label || "";
+  const specList = s.spec && s.spec.length ? s.spec.join(", ") : t("allSpecializations");
 
   const upstream = Array.from(getUpstream(id));
   const downstream = Array.from(getDownstream(id)).filter(d => d !== id);
@@ -892,9 +1232,9 @@ function selectSubject(id) {
   let personalStatus = "";
   if (attempts.length > 0) {
     const latest = attempts[attempts.length - 1];
-    const statusLabel = isPassed(id) ? "✓ Passed" :
-                       isFailed(id) ? "✗ Failed" :
-                       isInProgress(id) ? "⏳ In progress" : "Attempted";
+    const statusLabel = isPassed(id) ? t("statusPassed") :
+                       isFailed(id) ? t("statusFailed") :
+                       isInProgress(id) ? t("statusInProgress") : t("statusAttempted");
     const statusColor = isPassed(id) ? "#38a169" :
                         isFailed(id) ? "#e53e3e" :
                         isInProgress(id) ? "#d69e2e" : "#a0aec0";
@@ -904,12 +1244,12 @@ function selectSubject(id) {
          latest.final !== null ? `F: ${latest.final.toFixed(2)}` : "—");
     personalStatus = `
       <div class="info-section" style="margin-top:0;">
-        <h3>Your Status</h3>
+        <h3>${t("yourStatus")}</h3>
         <div class="status-banner ${isPassed(id) ? "passed" : isFailed(id) ? "failed" : isInProgress(id) ? "progress" : ""}">
           <span class="status-icon">${isPassed(id) ? "✓" : isFailed(id) ? "✗" : isInProgress(id) ? "⏳" : "•"}</span>
           <div style="flex:1;">
             <div class="status-text">${statusLabel}</div>
-            <div class="status-detail">Latest: ${termName(latest.term)} · ${gradeText}</div>
+            <div class="status-detail">${currentLang === "ar" ? "آخر" : "Latest"}: ${termName(latest.term)} · ${gradeText}</div>
           </div>
         </div>
       </div>
@@ -918,11 +1258,11 @@ function selectSubject(id) {
     // All attempts list
     const attemptsHtml = attempts.slice().reverse().map(a => {
       const aClass = a.passed ? "passed" : a.inProgress ? "progress" : "failed";
-      const aLabel = a.passed ? "✓ Passed" : a.inProgress ? "⏳ In progress" : "✗ Failed";
+      const aLabel = a.passed ? t("statusPassed") : a.inProgress ? t("statusInProgress") : t("statusFailed");
       const aColor = a.passed ? "#38a169" : a.inProgress ? "#d69e2e" : "#e53e3e";
       const sourceBadge = a.source === "placement"
-        ? '<span class="source-badge placement">Placement</span>'
-        : '<span class="source-badge course">Course</span>';
+        ? `<span class="source-badge placement">${currentLang === "ar" ? "تحديد مستوى" : "Placement"}</span>`
+        : `<span class="source-badge course">${currentLang === "ar" ? "مقرر" : "Course"}</span>`;
       // Placement attempts only have a "final" grade; show it accordingly
       const showAssignment = a.source !== "placement";
       const showFinal = true;
@@ -949,19 +1289,19 @@ function selectSubject(id) {
 
     personalStatus += `
       <div class="info-section">
-        <h3>All Attempts (${attempts.length})</h3>
+        <h3>${t("allAttempts")} (${attempts.length})</h3>
         <div class="attempt-list">${attemptsHtml}</div>
       </div>
     `;
   } else if (status === "available-next") {
     personalStatus = `
       <div class="info-section" style="margin-top:0;">
-        <h3>Your Status</h3>
+        <h3>${t("yourStatus")}</h3>
         <div class="status-banner passed" style="background:#f0fff4; color:#22543d;">
           <span class="status-icon">→</span>
           <div style="flex:1;">
-            <div class="status-text">Available next term</div>
-            <div class="status-detail">All prerequisites met — you can register for this.</div>
+            <div class="status-text">${t("availableNext")}</div>
+            <div class="status-detail">${t("availableHint")}</div>
           </div>
         </div>
       </div>
@@ -977,7 +1317,7 @@ function selectSubject(id) {
                    : st === "available-next" ? ' <span style="color:#3182ce">→</span>' : "";
         return `<span class="chip" data-id="${p}">${p}${tick}</span>`;
       }).join("")
-    : `<span class="chip empty">No prerequisites</span>`;
+    : `<span class="chip empty">${t("noPrereq")}</span>`;
 
   const downChips = downstream.length
     ? downstream.map(d => {
@@ -988,30 +1328,30 @@ function selectSubject(id) {
                    : st === "available-next" ? ' <span style="color:#3182ce">→</span>' : "";
         return `<span class="chip" data-id="${d}">${d}${tick}</span>`;
       }).join("")
-    : `<span class="chip empty">No downstream courses</span>`;
+    : `<span class="chip empty">${t("noDownstream")}</span>`;
 
   const concurrent = s.concurrent
     ? `<span class="chip" data-id="${s.concurrent}">${s.concurrent} (concurrent)</span>`
     : "";
 
   const extra = s.extra
-    ? `<div class="info-section"><h3>Additional Requirement</h3><div class="info-desc">${s.extra}</div></div>`
+    ? `<div class="info-section"><h3>${t("additionalReq")}</h3><div class="info-desc">${s.extra}</div></div>`
     : "";
 
   const isManual = !!userProgress.manualPass[id];
   const manualBlock = `
     <div class="info-section manual-section">
-      <h3>Manual Override</h3>
+      <h3>${t("manualOverride")}</h3>
       <div class="manual-row">
         <div class="manual-info">
           ${isManual
-            ? `<div class="manual-state on">✓ Manually marked as passed</div>
-               <div class="manual-hint">Treated as passed even without an attempt — useful for transferred credits.</div>`
-            : `<div class="manual-state off">Not manually marked</div>
-               <div class="manual-hint">Use this if you completed the subject elsewhere (e.g. transferred credit) and it doesn't appear in your import.</div>`}
+            ? `<div class="manual-state on">✓ ${t("manuallyMarked")}</div>
+               <div class="manual-hint">${t("manualHintOn")}</div>`
+            : `<div class="manual-state off">${t("notManuallyMarked")}</div>
+               <div class="manual-hint">${t("manualHintOff")}</div>`}
         </div>
         <button class="manual-btn ${isManual ? "remove" : "add"}" id="manualPassBtn">
-          ${isManual ? "↺ Remove" : "✓ Mark as passed"}
+          ${isManual ? `↺ ${t("manualRemove")}` : `✓ ${t("manualAdd")}`}
         </button>
       </div>
     </div>
@@ -1021,16 +1361,16 @@ function selectSubject(id) {
     <div class="info-head">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         <span class="info-code" style="background:${color.stroke}">${s.id}</span>
-        <span class="meta-pill" style="background:${color.fill};color:#fff;">${catLabel}</span>
-        <span class="meta-pill">${s.credits} Credits</span>
-        <span class="meta-pill">Level ${s.lvl}</span>
+        <span class="meta-pill" style="background:${cat.color};color:#fff;">${catLabel}</span>
+        <span class="meta-pill">${s.credits} ${t("credits")}</span>
+        <span class="meta-pill">${t("level")} ${s.lvl}</span>
       </div>
-      <div class="info-title">${s.name}</div>
-      <div class="info-subtitle">${s.nameAr || ""}</div>
+      <div class="info-title">${currentLang === "ar" && s.nameAr ? s.nameAr : s.name}</div>
+      <div class="info-subtitle">${currentLang === "ar" && s.nameAr ? s.name : (s.nameAr || "")}</div>
       <div class="info-meta">
         <span class="meta-pill">📚 ${specList}</span>
-        ${s.concurrent ? '<span class="meta-pill">🔄 Concurrent</span>' : ''}
-        ${s.extra ? '<span class="meta-pill">⚠️ Special rule</span>' : ''}
+        ${s.concurrent ? `<span class="meta-pill">${t("concurrent2")}</span>` : ''}
+        ${s.extra ? `<span class="meta-pill">${t("specialRule")}</span>` : ''}
       </div>
     </div>
 
@@ -1041,17 +1381,17 @@ function selectSubject(id) {
     ${extra}
 
     <div class="info-section">
-      <h3>Prerequisites (${s.prereq.length})</h3>
+      <h3>${t("prerequisites")} (${s.prereq.length})</h3>
       <div class="chip-list">${prereqChips}</div>
     </div>
 
     ${concurrent ? `<div class="info-section">
-      <h3>Concurrent With</h3>
+      <h3>${t("concurrent")}</h3>
       <div class="chip-list">${concurrent}</div>
     </div>` : ""}
 
     <div class="info-section">
-      <h3>Unlocks (${downstream.length})</h3>
+      <h3>${t("unlocks")} (${downstream.length})</h3>
       <div class="chip-list">${downChips}</div>
     </div>
   `;
@@ -1118,7 +1458,7 @@ function buildCategoryFilters() {
     chip.style.setProperty("--chip-color", info.color);
     chip.innerHTML = `
       <span class="cat-dot"></span>
-      <span class="cat-label">${info.label}</span>
+      <span class="cat-label">${(info.label && (info.label[currentLang] || info.label.en)) || info.label || ""}</span>
       <span class="cat-check">✓</span>
     `;
     if (!isActive) {
@@ -1337,10 +1677,10 @@ function clearImportedData() {
 function refreshImportButton() {
   if (userProgress.parsed) {
     importBtn.classList.add("has-data");
-    importBtn.innerHTML = `<span class="icon">↻</span> Re-import`;
+    importBtn.innerHTML = `<span class="icon">↻</span> ${t("reimportBtn")}`;
   } else {
     importBtn.classList.remove("has-data");
-    importBtn.innerHTML = `<span class="icon">↓</span> Import`;
+    importBtn.innerHTML = `<span class="icon">↓</span> ${t("importBtn")}`;
   }
 }
 
@@ -1358,10 +1698,28 @@ document.addEventListener("keydown", e => {
 });
 
 // ===== Init =====
+applyLang(loadLang());
+applyTheme(loadTheme());
 loadProgress();
 recomputeAvailableNext();
 refreshImportButton();
 buildCategoryFilters();
+
+// Theme toggle wiring
+const themeToggleBtn = document.getElementById("themeToggle");
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    applyTheme(document.body.classList.contains("dark") ? "light" : "dark");
+  });
+}
+
+// Language toggle wiring
+const langToggleBtn = document.getElementById("langToggle");
+if (langToggleBtn) {
+  langToggleBtn.addEventListener("click", () => {
+    applyLang(currentLang === "ar" ? "en" : "ar");
+  });
+}
 
 // Summary collapse toggle
 const summaryToggleBtn = document.getElementById("summaryToggle");
