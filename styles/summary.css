@@ -1,11 +1,18 @@
-.import-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; padding-top: 12px; border-top: 1px solid var(--border); }
-.import-stat { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); }
-.import-stat::before { content: ""; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.import-stats { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+.import-stat {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 5px;
+  padding: 12px 10px 12px 12px; min-height: 46px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-md); color: var(--text-muted); font-size: 11px;
+}
+.import-stat::before { content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: 3px; }
 .import-stat.passed::before { background: var(--success); }
 .import-stat.failed::before { background: var(--danger); }
 .import-stat.progress::before { background: var(--warning); }
 .import-stat.total::before { background: var(--accent); }
-.import-stat .stat-value { margin-inline-start: auto; font-size: 14px; font-weight: 700; color: var(--text); }
+.import-stat .stat-value { margin-inline-start: auto; font-size: 17px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.import-stat .stat-sub { white-space: nowrap; }
 .available-list { display: flex; flex-wrap: wrap; gap: 7px; }
 .available-list .chip.cat-chip-inline {
   padding: 7px 8px; background: var(--availability-bg); color: var(--availability-text);
