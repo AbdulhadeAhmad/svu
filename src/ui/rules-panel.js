@@ -17,7 +17,6 @@ export function createRulesPanel({ catalog, progress, i18n }) {
     document.getElementById("academicRulesTitle").textContent = ar ? "القواعد" : "Rules";
     const registrationRule = info.prerequisite_registration_rules;
     const explanation = ar ? registrationRule.nameAr : `${registrationRule.default} ${registrationRule.english_levels}`;
-    document.querySelector(".modal-hint").textContent = `${ar ? "الصق جدول الامتحانات والوظائف هنا." : "Paste your exam/assignments table here."} ${explanation}`;
     row(ar ? "الأسبقيات" : "Prerequisites", explanation);
     const limits = info.semester_registration_credits;
     row(ar ? "نقاط التسجيل في الفصل" : "Registration credits per term", `${limits.minimum}–${limits.maximum}`);

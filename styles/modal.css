@@ -46,19 +46,15 @@
 }
 .modal-close:hover { color: var(--danger); background: var(--danger-soft); }
 
-.modal-body { padding: 20px 22px; flex: 1; overflow-y: auto; }
-.modal-hint {
-  font-size: 13px; line-height: 1.6; color: var(--text-muted);
-  background: var(--accent-soft); border-left: 3px solid var(--accent);
-  padding: 11px 14px; border-radius: var(--radius-sm);
-  margin-bottom: 14px;
-}
-.modal-hint code {
-  background: var(--surface-2);
-  padding: 1px 5px; border-radius: 3px;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 12px;
-}
+.modal-body { padding: 20px 22px; flex: 1; min-width: 0; min-height: 0; overflow-y: auto; }
+.import-guide { width: 100%; min-width: 0; margin-bottom: 16px; }
+.import-guide h3 { font-size: 13px; color: var(--text); margin-bottom: 8px; }
+.import-steps { padding-inline-start: 22px; margin-bottom: 12px; font-size: 12px; line-height: 1.8; color: var(--text-muted); }
+.import-steps li + li { margin-top: 4px; }
+.import-steps kbd { display: inline-block; direction: ltr; white-space: nowrap; padding: 0 5px; border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 4px; background: var(--surface-2); color: var(--text); font: inherit; font-size: 11px; }
+#importGuideVideo { display: block; width: 100%; max-width: 100%; height: auto; max-height: 240px; object-fit: contain; background: #000; border: 1px solid var(--border); border-radius: var(--radius-md); }
+#importVideoCaption { font-size: 11px; color: var(--text-muted); margin-top: 7px; }
+html[lang="ar"] .import-steps { direction: rtl; }
 
 #examTextarea {
   width: 100%;

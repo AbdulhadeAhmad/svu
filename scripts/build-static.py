@@ -13,6 +13,7 @@ def main():
     runtime = [ROOT / name for name in ('index.html', 'style.css', 'ite_subjects.json')]
     runtime += sorted((ROOT / 'src').rglob('*.js'))
     runtime += sorted((ROOT / 'styles').rglob('*.css'))
+    runtime.append(ROOT / 'assets/videos/import-exam-history.mp4')
     for source in runtime:
         if not source.is_file() or source.is_symlink() or not source.resolve().is_relative_to(ROOT):
             raise SystemExit(f'Invalid runtime file: {source}')

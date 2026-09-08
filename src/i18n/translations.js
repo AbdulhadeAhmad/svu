@@ -1,5 +1,13 @@
 export const TRANSLATIONS = {
   en: {
+    importGuideTitle: "How to import your history",
+    importStepOpen: "Go to the Exams System and open your exam history.",
+    importStepSelect: "Select everything with",
+    importStepCopy: "then copy with",
+    importStepPaste: "Paste into the box below with",
+    importStepParse: "then click Parse.",
+    importVideoFallback: "Watch the import tutorial",
+    importVideoCaption: "Video walkthrough · On Mac, use ⌘ instead of Ctrl.",
     progressSection: "Progress",
     allAvailable: "All available",
     noAvailable: "No available courses in your selection.",
@@ -75,6 +83,14 @@ export const TRANSLATIONS = {
     hardRefreshHint: "Check the browser console (F12) for details. Try a hard refresh (Ctrl+Shift+R)."
   },
   ar: {
+    importGuideTitle: "كيفية استيراد سجلك",
+    importStepOpen: "انتقل إلى نظام الامتحانات وافتح سجلك الامتحاني.",
+    importStepSelect: "حدد كل المحتوى باستخدام",
+    importStepCopy: "ثم انسخه باستخدام",
+    importStepPaste: "الصق المحتوى في المربع أدناه باستخدام",
+    importStepParse: "ثم اضغط على تحليل.",
+    importVideoFallback: "شاهد شرح الاستيراد",
+    importVideoCaption: "شرح بالفيديو · على أجهزة Mac، استخدم ⌘ بدلاً من Ctrl.",
     progressSection: "التقدم",
     allAvailable: "جميع المواد المتاحة",
     noAvailable: "لا توجد مواد متاحة ضمن اختيارك.",

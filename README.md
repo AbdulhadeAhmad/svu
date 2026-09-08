@@ -23,7 +23,7 @@ python3 scripts/build-static.py
 # Equivalent, if npm is installed: npm run build
 ```
 
-This recreates the generated `dist/` folder with only `index.html`, `style.css`, `ite_subjects.json`, JavaScript modules in `src/`, and stylesheets in `styles/`. Do not store custom files in `dist/`. The PDF, tests, deployment configuration, and repository metadata are excluded. There is no compilation or dependency installation.
+This recreates the generated `dist/` folder with only `index.html`, `style.css`, `ite_subjects.json`, JavaScript modules in `src/`, stylesheets in `styles/`, and the import tutorial in `assets/videos/`. Do not store custom files in `dist/`. The PDF, tests, deployment configuration, and repository metadata are excluded. There is no compilation or dependency installation.
 
 ### Install on the server
 
@@ -74,6 +74,8 @@ server {
 If your certificate manager uses HTTP-01 challenges, configure its challenge location before the catch-all 404/redirect, or let its Nginx integration manage validation. Test with `sudo nginx -t` before reloading. When TLS terminates at an existing reverse proxy, the original HTTP template can serve as its upstream.
 
 Browser storage is scoped to the origin: moving from localhost to your domain, or from HTTP to HTTPS, requires re-importing your history.
+
+The import dialog includes a local video walkthrough and keyboard instructions in English and Arabic. Its video is served directly by Nginx with MP4 MIME typing and byte-range support for seeking.
 
 ### Updates and verification
 
@@ -129,6 +131,7 @@ src/
   ui/                      Filters, appearance, summary, course details, rules, import dialog
 styles/                    Theme, layout, sidebar, summary, graph, modal, and utilities
 style.css                  Ordered stylesheet imports
+assets/videos/             Import walkthrough video
 deploy/nginx.conf.template Nginx server block with hostname/root placeholders
 scripts/build-static.py   Prepare the runtime-only dist/ directory
 dist/                     Generated static deployment files (ignored by Git)

@@ -33,6 +33,8 @@ server {
     location = /index.html { try_files $uri =404; }
     location = /style.css { try_files $uri =404; }
     location = /ite_subjects.json { try_files $uri =404; }
+    # Native static serving supports byte ranges for video seeking.
+    location = /assets/videos/import-exam-history.mp4 { try_files $uri =404; }
 
     # Keep hidden files private even if the document root is misconfigured.
     location ~ /\. { return 404; }

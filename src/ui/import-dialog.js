@@ -3,6 +3,7 @@ export function createImportDialog({ state, i18n, parseExamHistory, passedAttemp
   const { t } = i18n;
   let lastParsed = null;
   const importModal = document.getElementById("importModal");
+  const guideVideo = document.getElementById("importGuideVideo");
   const importBtn = document.getElementById("importBtn");
   const examTextarea = document.getElementById("examTextarea");
   const parseResult = document.getElementById("parseResult");
@@ -19,9 +20,14 @@ export function createImportDialog({ state, i18n, parseExamHistory, passedAttemp
     modalApplyBtn.hidden = true;
     modalClearBtn.hidden = !hasProgress();
     importModal.hidden = false;
-    setTimeout(() => examTextarea.focus(), 50);
+    guideVideo.muted = true;
+    guideVideo.currentTime = 0;
+    // Start only when the dialog opens; native controls remain if playback is blocked.
+    guideVideo.play().catch(() => {});
+    setTimeout(() => examTextarea.focus({ preventScroll: true }), 50);
   }
   function closeImportModal() {
+    guideVideo.pause();
     importModal.hidden = true;
   }
 

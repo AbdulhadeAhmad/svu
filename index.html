@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ITE Subjects Graph - SVU</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=import-video-2" />
 </head>
 <body data-catalog="ite_subjects.json">
   <header>
@@ -80,7 +80,19 @@
         <button class="modal-close" id="modalCloseBtn" aria-label="Close">×</button>
       </div>
       <div class="modal-body">
-        <p class="modal-hint"></p>
+        <section class="import-guide" aria-labelledby="importGuideTitle">
+          <h3 id="importGuideTitle" data-i18n="importGuideTitle">How to import your history</h3>
+          <ol class="import-steps">
+            <li data-i18n="importStepOpen">Go to the Exams System and open your exam history.</li>
+            <li><span data-i18n="importStepSelect">Select everything with</span> <kbd>Ctrl + A</kbd>, <span data-i18n="importStepCopy">then copy with</span> <kbd>Ctrl + C</kbd>.</li>
+            <li><span data-i18n="importStepPaste">Paste into the box below with</span> <kbd>Ctrl + V</kbd>, <span data-i18n="importStepParse">then click Parse.</span></li>
+          </ol>
+          <video id="importGuideVideo" width="640" height="360" controls muted playsinline preload="metadata" aria-labelledby="importGuideTitle" aria-describedby="importVideoCaption">
+            <source src="assets/videos/import-exam-history.mp4" type="video/mp4" />
+            <a href="assets/videos/import-exam-history.mp4" data-i18n="importVideoFallback">Watch the import tutorial</a>
+          </video>
+          <p id="importVideoCaption" data-i18n="importVideoCaption">Video walkthrough · On Mac, use ⌘ instead of Ctrl.</p>
+        </section>
         <textarea id="examTextarea" aria-label="Exam history table" placeholder="Paste your exam/assignments table here…"></textarea>
         <div class="parse-result" id="parseResult" hidden>
           <div class="parse-summary" id="parseSummary"></div>
