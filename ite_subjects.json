@@ -1281,6 +1281,7 @@
       "maximum": 36
     },
     "year_promotion_minimum_credits": {
+      "1": 0,
       "2": 40,
       "3": 100,
       "4": 160,

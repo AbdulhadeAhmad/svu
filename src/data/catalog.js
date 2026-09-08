@@ -12,6 +12,15 @@ export function normalizeCatalog(data) {
     throw new Error("Catalog is missing program data or application rules.");
   }
   const grading = config.grading;
+  const yearThresholds = Object.entries(data.additional_info.year_promotion_minimum_credits || {})
+    .map(([year, credits]) => ({ year: Number(year), credits }))
+    .sort((a, b) => a.year - b.year);
+  if (!yearThresholds.length || yearThresholds[0].credits !== 0 ||
+      yearThresholds.some((entry, index) => !Number.isInteger(entry.year) || entry.year <= 0 ||
+        !Number.isFinite(entry.credits) || entry.credits < 0 ||
+        (index > 0 && entry.credits <= yearThresholds[index - 1].credits))) {
+    throw new Error("Invalid academic year credit thresholds.");
+  }
   for (const key of ["assignmentWeight", "finalWeight", "passThreshold"]) {
     if (!Number.isFinite(grading[key])) throw new Error(`Missing grading rule: ${key}`);
   }
