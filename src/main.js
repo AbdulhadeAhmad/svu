@@ -4,6 +4,7 @@ import { createGrading } from "./domain/grading.js";
 import { createExamParser } from "./domain/exam-parser.js";
 import { createProgressModel } from "./domain/progress.js";
 import { createStudyProgress } from "./domain/study-progress.js";
+import { createCourseRecommendations } from "./domain/recommendations.js";
 import { createStorage } from "./state/storage.js";
 import { createProgressStore } from "./state/progress-store.js";
 import { createFilterStore } from "./state/filters.js";
@@ -16,6 +17,8 @@ import { createImportDialog } from "./ui/import-dialog.js";
 import { createFilterControls } from "./ui/filters.js";
 import { createAppearance } from "./ui/appearance.js";
 import { createStudyOverview } from "./ui/study-overview.js";
+import { createRecommendationsView } from "./ui/recommendations.js";
+import { createResetControl } from "./ui/reset-control.js";
 
 // Compose the data model and views here. Feature modules communicate through
 // explicit callbacks; academic rules and storage never depend on the DOM.
@@ -33,9 +36,12 @@ async function startApp() {
   const progress = createProgressModel({ config, subjectsById, state, passedAttempt: rules.passedAttempt });
   const filters = createFilterStore({ config, categories, storage });
   const i18n = createI18n({ storage, importConfig: config.import });
+  const resetControl = createResetControl({ storage, i18n });
   const studyProgress = createStudyProgress({ subjectsById, progress,
     yearThresholds: catalog.additionalInfo.year_promotion_minimum_credits });
   const studyOverview = createStudyOverview({ studyProgress, progress, filters, i18n });
+  const recommendations = createCourseRecommendations({ subjectsById, progress, settings: config.recommendations });
+  const recommendationsView = createRecommendationsView({ catalog, curriculum, recommendations, filters, i18n, onNavigate: navigate });
 
   const graph = createGraphView({ catalog, curriculum, progress, state, filters, i18n,
     onSelect: id => details.select(id) });
@@ -69,6 +75,7 @@ async function startApp() {
     onChange() {
       updateVisibility();
       studyOverview.render();
+      recommendationsView.render();
     },
     onSearch() {
       graph.clearHighlight();
@@ -94,9 +101,11 @@ async function startApp() {
     graph.render();
     studyOverview.render();
     summary.render();
+    recommendationsView.render();
     rulesPanel.render();
     details.refresh();
     importDialog.refresh();
+    resetControl.refresh();
   }
 
   appearance.initialize();

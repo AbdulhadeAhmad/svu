@@ -14,7 +14,7 @@ export function createRulesPanel({ catalog, progress, i18n }) {
       li.textContent = `${label}: ${value}`;
       list.appendChild(li);
     }
-    document.getElementById("academicRulesTitle").textContent = ar ? "قواعد التسجيل والنجاح" : "Registration and grading rules";
+    document.getElementById("academicRulesTitle").textContent = ar ? "القواعد" : "Rules";
     const registrationRule = info.prerequisite_registration_rules;
     const explanation = ar ? registrationRule.nameAr : `${registrationRule.default} ${registrationRule.english_levels}`;
     document.querySelector(".modal-hint").textContent = `${ar ? "الصق جدول الامتحانات والوظائف هنا." : "Paste your exam/assignments table here."} ${explanation}`;

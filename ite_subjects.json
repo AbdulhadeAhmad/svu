@@ -1324,6 +1324,10 @@
     "source_caveat": "The authors advise checking university regulations, especially specialization diagrams, because requirements may change."
   },
   "app_config": {
+    "recommendations": {
+      "limit": 3,
+      "priority": ["depth", "downstreamCount", "immediateUnlocks"]
+    },
     "defaultFilters": ["general", "basic"],
     "title": {
       "en": "ITE Subjects Prerequisite Graph",

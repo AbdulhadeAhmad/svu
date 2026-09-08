@@ -98,6 +98,11 @@ header p { font-size: 12px; opacity: 0.7; margin-top: 2px; }
   box-shadow: var(--shadow-sm);
 }
 .control-btn:active { transform: translateY(0); }
+.control-actions { display: flex; align-items: center; gap: 8px; }
+.control-actions .control-btn { white-space: nowrap; }
+.reset-btn { color: var(--danger); }
+.reset-btn:hover { background: var(--danger-soft); border-color: var(--danger); }
+.reset-error { color: var(--danger); font-size: 12px; }
 
 /* Theme toggle */
 .theme-toggle {
@@ -150,4 +155,3 @@ header p { font-size: 12px; opacity: 0.7; margin-top: 2px; }
 .graph-wrap::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 6px; }
 .graph-wrap::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
 .graph-wrap svg { display: block; }
-

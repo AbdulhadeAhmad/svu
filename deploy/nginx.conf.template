@@ -1,0 +1,44 @@
+# Render with envsubst '${SERVER_NAME} ${DOCUMENT_ROOT}' (see README).
+# Include this server block inside nginx.conf's http {} context.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ${SERVER_NAME};
+    root ${DOCUMENT_ROOT};
+    index index.html;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    charset utf-8;
+    server_tokens off;
+    autoindex off;
+    sendfile on;
+    etag on;
+
+    # Filenames are not content-hashed: revalidate HTML, CSS, JS and JSON.
+    # Conditional requests can still return 304 when content is unchanged.
+    add_header Cache-Control "no-cache" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_comp_level 5;
+    gzip_types text/css application/javascript text/javascript application/json image/svg+xml;
+
+    # Allow only the app entry point and its runtime assets.
+    location = / { try_files /index.html =404; }
+    location = /index.html { try_files $uri =404; }
+    location = /style.css { try_files $uri =404; }
+    location = /ite_subjects.json { try_files $uri =404; }
+
+    # Keep hidden files private even if the document root is misconfigured.
+    location ~ /\. { return 404; }
+    location ~ ^/src/.+\.js$ { try_files $uri =404; }
+    location ~ ^/styles/.+\.css$ { try_files $uri =404; }
+
+    # No client-side routes: missing modules must not receive index.html.
+    location / { return 404; }
+}

@@ -77,6 +77,31 @@ class AppTests(unittest.TestCase):
     def stored(self):
         return self.page.evaluate('JSON.parse(localStorage.getItem("svu_ite_progress_v2"))')
 
+    def test_sidebar_sections_collapse_independently(self):
+        self.load()
+        panels = self.page.locator('#info > details')
+        self.assertEqual(panels.count(), 3)
+        self.assertEqual(panels.locator('summary').all_text_contents(),
+                         ['Rules', 'Progress', 'Available next term0'])
+        self.assertIsNone(self.page.locator('#academicRules').get_attribute('open'))
+        self.page.locator('#academicRules > summary').click()
+        self.assertTrue(self.page.locator('#academicRulesList').is_visible())
+        self.import_history(exam('BMA401'))
+        self.page.locator('#progressPanel > summary').click()
+        self.assertFalse(self.page.locator('#remainingCourses').is_visible())
+        self.assertTrue(self.page.locator('#courseRecommendations').is_visible())
+        self.page.locator('#availablePanel > summary').focus()
+        self.page.keyboard.press('Enter')
+        self.assertFalse(self.page.locator('#courseRecommendations').is_visible())
+        self.page.locator('#langToggle').click()
+        for panel in ['progressPanel', 'availablePanel']:
+            self.assertIsNone(self.page.locator(f'#{panel}').get_attribute('open'))
+        self.assertTrue(self.page.locator('#academicRulesList').is_visible())
+        self.page.locator('#availablePanel > summary').click()
+        self.assertTrue(self.page.locator('#courseRecommendations').is_visible())
+        self.page.locator('#progressPanel > summary').click()
+        self.assertTrue(self.page.locator('#remainingCourses').is_visible())
+
     def test_catalog_tracks_and_shared_courses(self):
         self.load()
         self.assertEqual(self.page.locator('.node').count(), 92)
@@ -230,6 +255,107 @@ class AppTests(unittest.TestCase):
         self.import_history(exam('BMA401') + '\n' + exam('ZZZ999'))
         self.assertNotIn('ZZZ999', self.stored()['attempts'])
         self.assertEqual(self.page.locator('.import-stat.total .stat-value').inner_text(), '1')
+
+    def test_remaining_totals_and_academic_year_update(self):
+        self.load()
+        self.assertEqual(self.page.locator('#remainingCourses').inner_text(), '50')
+        self.assertEqual(self.page.locator('#remainingCredits').inner_text(), '252')
+        self.assertEqual(self.page.locator('#academicYear').inner_text(), '—')
+        self.import_history(exam('ENG_L1') + '\n' + exam('BMA401', 20, 20))
+        self.assertEqual(self.page.locator('#remainingCourses').inner_text(), '49')
+        self.assertEqual(self.page.locator('#remainingCredits').inner_text(), '249')
+        self.assertEqual(self.page.locator('#academicYear').inner_text(), 'Year 1')
+        self.assertIn('37 credit hours to Year 2', self.page.locator('#yearProgress').inner_text())
+        self.page.locator('#catFilters [data-cat="general"]').click()
+        self.page.locator('#catFilters [data-cat="basic"]').click()
+        self.page.locator('#catFilters [data-cat="SE/DS"]').click()
+        self.page.locator('#catFilters [data-cat="AI/IS"]').click()
+        self.assertEqual(self.page.locator('#remainingCourses').inner_text(), '17')
+        self.assertEqual(self.page.locator('#remainingCredits').inner_text(), '96')
+        self.assertEqual(self.page.locator('#academicYear').inner_text(), 'Year 1')
+        self.node('SIR601').click()
+        self.page.locator('#manualPassBtn').click()
+        self.assertEqual(self.page.locator('#remainingCourses').inner_text(), '16')
+        self.assertEqual(self.page.locator('#remainingCredits').inner_text(), '90')
+        self.page.locator('#langToggle').click()
+        self.assertIn('المواد المتبقية', self.page.locator('#studyOverview').inner_text())
+        self.assertEqual(self.page.locator('#academicYear').inner_text(), 'السنة 1')
+
+    def test_recommendations_are_available_and_follow_filters(self):
+        self.load()
+        self.import_history(exam('BMA401', 20, 20))
+        suggestions = self.page.locator('#courseRecommendations button[data-id]')
+        self.assertEqual(suggestions.count(), 3)
+        ids = suggestions.evaluate_all('elements => elements.map(el => el.dataset.id)')
+        for code in ids:
+            self.assertTrue(self.available(code))
+        self.assertNotEqual(ids[0], 'BMA401')
+        self.assertIn('Chain length:', suggestions.first.inner_text())
+        suggestions.first.click()
+        self.assertEqual(self.page.locator('#detailSection .info-code').inner_text(), ids[0])
+        self.page.locator('#catFilters [data-cat="basic"]').click()
+        remaining = suggestions.evaluate_all('elements => elements.map(el => el.dataset.id)')
+        self.assertTrue(all(code.startswith('G') for code in remaining))
+        self.page.locator('#catFilters [data-cat="general"]').click()
+        self.assertFalse(self.page.locator('#courseRecommendations').is_visible())
+        self.assertEqual(self.page.locator('#remainingCourses').inner_text(), '0')
+
+    def test_reset_clears_all_app_state_and_reloads_fresh(self):
+        self.page.emulate_media(color_scheme='light')
+        self.load()
+        self.import_history(exam('BMA401'))
+        self.node('BPH401').click()
+        self.page.locator('#manualPassBtn').click()
+        self.page.locator('#catFilters [data-cat="SE/DS"]').click()
+        self.page.locator('#langToggle').click()
+        self.page.locator('#themeToggle').click()
+        self.page.locator('#search').fill('BMA401')
+        self.page.locator('#zoomIn').click()
+        self.page.evaluate("""() => {
+            localStorage.setItem('svu_ite_progress_v1', 'legacy');
+            localStorage.setItem('svu_track_v1', 'SE/DS');
+            sessionStorage.setItem('svu_draft', 'draft');
+            localStorage.setItem('another_app', 'keep');
+            sessionStorage.setItem('another_app', 'keep');
+            window.resetTestMarker = true;
+        }""")
+        self.assertIn('إعادة ضبط', self.page.locator('#resetBtn').inner_text())
+        self.assertEqual(self.page.locator('#importBtn').evaluate('el => el.nextElementSibling.id'), 'resetBtn')
+        with self.page.expect_navigation(wait_until='load'):
+            self.page.locator('#resetBtn').click()
+        self.page.wait_for_function('document.body.dataset.ready === "true"')
+        self.assertIsNone(self.page.evaluate('window.resetTestMarker'))
+        self.assertIsNone(self.stored())
+        self.assertEqual(self.page.locator('#catFilters .active .cat-label').all_text_contents(), ['General', 'Basic'])
+        self.assertEqual(self.page.locator('#search').input_value(), '')
+        self.assertEqual(self.page.locator('#graph').evaluate('el => el.style.transform'), '')
+        self.assertEqual(self.page.locator('#graphWrap').evaluate('el => [el.scrollLeft, el.scrollTop]'), [0, 0])
+        self.assertEqual(self.page.locator('html').get_attribute('lang'), 'en')
+        self.assertNotIn('dark', self.page.locator('body').get_attribute('class') or '')
+        self.assertFalse(self.page.locator('#summarySection').is_visible())
+        self.assertFalse(self.page.locator('#detailSection').is_visible())
+        self.assertEqual(self.page.locator('#academicYear').inner_text(), '—')
+        self.assertEqual(self.page.locator('#remainingCourses').inner_text(), '50')
+        self.assertEqual(self.page.locator('#remainingCredits').inner_text(), '252')
+        self.assertEqual(self.page.locator('#importBtn').inner_text().split(), ['↓', 'Import'])
+        self.assertIsNone(self.page.evaluate("localStorage.getItem('svu_ite_progress_v1')"))
+        self.assertIsNone(self.page.evaluate("localStorage.getItem('svu_track_v1')"))
+        self.assertIsNone(self.page.evaluate("sessionStorage.getItem('svu_draft')"))
+        self.assertEqual(self.page.evaluate("localStorage.getItem('another_app')"), 'keep')
+        self.assertEqual(self.page.evaluate("sessionStorage.getItem('another_app')"), 'keep')
+
+    def test_reset_storage_failure_is_visible_without_reloading(self):
+        self.load()
+        self.import_history(exam('BMA401'))
+        self.page.evaluate("""() => {
+            window.resetTestMarker = true;
+            Storage.prototype.removeItem = () => { throw new DOMException('Blocked', 'SecurityError'); };
+        }""")
+        self.page.locator('#resetBtn').click()
+        self.assertTrue(self.page.locator('#resetError').is_visible())
+        self.assertTrue(self.page.locator('#resetBtn').is_enabled())
+        self.assertTrue(self.page.evaluate('window.resetTestMarker'))
+        self.assertTrue(self.stored()['parsed'])
 
     def test_fetch_failure_and_invalid_catalog(self):
         self.page.route('**/ite_subjects.json', lambda route: route.fulfill(status=404, body='missing'))

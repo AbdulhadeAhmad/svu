@@ -23,6 +23,16 @@ export function createStorage() {
     writeText(key, value) {
       try { localStorage.setItem(key, value); }
       catch { /* Ignore storage errors. */ }
+    },
+    reset() {
+      // Include old versions of progress, filters, and the retired track selector.
+      // Other apps can share this origin, so only remove this app's keys.
+      for (const storage of [localStorage, sessionStorage]) {
+        const keys = Array.from({ length: storage.length }, (_, index) => storage.key(index));
+        for (const key of keys) {
+          if (key?.startsWith("svu_")) storage.removeItem(key);
+        }
+      }
     }
   };
 }

@@ -12,6 +12,12 @@ export function normalizeCatalog(data) {
     throw new Error("Catalog is missing program data or application rules.");
   }
   const grading = config.grading;
+  const recommendationSettings = config.recommendations;
+  if (!Number.isInteger(recommendationSettings?.limit) || recommendationSettings.limit <= 0 ||
+      !Array.isArray(recommendationSettings.priority) || !recommendationSettings.priority.length ||
+      recommendationSettings.priority.some(metric => !["depth", "downstreamCount", "immediateUnlocks"].includes(metric))) {
+    throw new Error("Invalid recommendation settings.");
+  }
   const yearThresholds = Object.entries(data.additional_info.year_promotion_minimum_credits || {})
     .map(([year, credits]) => ({ year: Number(year), credits }))
     .sort((a, b) => a.year - b.year);

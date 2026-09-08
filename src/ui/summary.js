@@ -8,13 +8,8 @@ export function createSummary({ catalog, curriculum, progress, filters, i18n, on
     const summaryEl = document.getElementById("summarySection");
     const summaryBody = document.getElementById("summaryBody");
 
-    if (!hasProgress()) {
-      if (emptyEl) emptyEl.hidden = isSelectionActive();
-      if (summaryEl) summaryEl.hidden = true;
-      return;
-    }
-    if (emptyEl) emptyEl.hidden = true;
-    if (summaryEl) summaryEl.hidden = false;
+    if (emptyEl) emptyEl.hidden = hasProgress() || isSelectionActive();
+    if (summaryEl) summaryEl.hidden = !hasProgress();
 
     let passed = 0, failed = 0, inProgress = 0;
     let passedCredits = 0, inProgressCredits = 0;
@@ -34,9 +29,9 @@ export function createSummary({ catalog, curriculum, progress, filters, i18n, on
           const credits = sub ? (sub.registration_credits ?? sub.credits) : 0;
           const style = cat ? ` style="--chip-color:${cat.color};"` : "";
           const creditsLabel = credits ? `<span class="chip-credits">${credits}${i18n.language === "ar" ? "س" : "cr"}</span>` : "";
-          return `<span class="chip cat-chip-inline" data-id="${id}" data-cat="${catKey}"${style}><span class="available-arrow" aria-hidden="true">→</span>${id}${creditsLabel}</span>`;
+          return `<button type="button" class="chip cat-chip-inline" data-id="${id}" data-cat="${catKey}"${style}><span class="available-arrow" aria-hidden="true">→</span>${id}${creditsLabel}</button>`;
         }).join("")
-      : `<span class="chip empty">No new subjects available yet</span>`;
+      : "";
 
     summaryBody.innerHTML = `
       <div class="import-summary">
@@ -46,13 +41,11 @@ export function createSummary({ catalog, curriculum, progress, filters, i18n, on
           <div class="import-stat progress"><span>${t("inProgress")}</span><span class="stat-value">${inProgress}</span><span class="stat-sub">${inProgressCredits} cr</span></div>
           <div class="import-stat total"><span>${t("courses")}</span><span class="stat-value">${totalCourses}</span></div>
         </div>
-
-        <h3 class="subsection-h3">${t("availableNext")} <span class="h3-count" id="availableCount">${availableList.length}</span></h3>
-        <div class="available-list" id="availableList">${availableChips}</div>
       </div>
     `;
 
-    summaryBody.querySelectorAll(".chip[data-id]").forEach(chip => {
+    document.getElementById("availableList").innerHTML = availableChips;
+    document.getElementById("availableList").querySelectorAll(".chip[data-id]").forEach(chip => {
       chip.addEventListener("click", () => {
         const targetId = chip.getAttribute("data-id");
         onNavigate(targetId);
@@ -70,14 +63,11 @@ export function createSummary({ catalog, curriculum, progress, filters, i18n, on
       if (visible) count++;
     });
     document.getElementById("availableCount").textContent = count;
+    document.getElementById("availableListTitle").hidden = count === 0;
+    const empty = document.getElementById("availableEmpty");
+    empty.hidden = count > 0;
+    empty.textContent = t(hasProgress() ? "noAvailable" : "importAvailableHint");
   }
-
-  document.getElementById("summaryToggle").addEventListener("click", () => {
-    const button = document.getElementById("summaryToggle");
-    const expanded = button.getAttribute("aria-expanded") === "true";
-    button.setAttribute("aria-expanded", String(!expanded));
-    document.getElementById("summaryBody").hidden = expanded;
-  });
 
   return { render: renderImportSummary, updateAvailableCount };
 }

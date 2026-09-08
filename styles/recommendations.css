@@ -1,0 +1,41 @@
+.course-recommendations { margin-bottom: 12px; }
+
+.recommendation-list { list-style: none; display: grid; gap: 7px; margin: 9px 0; padding: 0; }
+.recommendation {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  text-align: start;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.recommendation:hover, .recommendation:focus-visible { border-color: var(--accent); background: var(--accent-soft); }
+.recommendation-rank {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+.recommendation-content { display: grid; gap: 4px; min-width: 0; }
+.recommendation-content strong { font-size: 12px; }
+.recommendation-credits { font-weight: 400; font-size: 10px; color: var(--text-muted); }
+.recommendation-name { font-size: 11px; }
+.recommendation-metrics { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 10px; color: var(--text-muted); }
+
+.recommendation-list li:first-child .recommendation { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
+.recommendation-list li:first-child .recommendation-rank { background: var(--accent); color: #fff; }
+.recommendation-metrics { padding-top: 3px; }
+.ranking-help { position: relative; cursor: help; font-size: 13px; }
+.ranking-tooltip { display: none; position: absolute; z-index: 5; top: 22px; left: -90px; width: 240px; padding: 12px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text); font-size: 11px; font-weight: 400; line-height: 1.6; box-shadow: var(--shadow-lg); }
+.ranking-help:hover .ranking-tooltip, .ranking-help:focus .ranking-tooltip { display: block; }

@@ -25,9 +25,12 @@ export function createProgressModel({ config, subjectsById, state, passedAttempt
   function earnedCredits() {
     return Object.values(subjectsById).reduce((sum, s) => sum + (hasPassed(s.id) ? s.credits : 0), 0);
   }
-  function prerequisitesMet(subject) {
+  function isPrerequisiteSatisfied(id, subject) {
     const policy = subject.prerequisite_policy || config.eligibility.defaultPrerequisitePolicy;
-    return subject.prereq.every(id => policy === "passed" ? hasPassed(id) : hasPassed(id) || getAttempts(id).length > 0);
+    return policy === "passed" ? hasPassed(id) : hasPassed(id) || getAttempts(id).length > 0;
+  }
+  function prerequisitesMet(subject) {
+    return subject.prereq.every(id => isPrerequisiteSatisfied(id, subject));
   }
   function isAvailableNext(id) {
     const subject = subjectsById[id];
@@ -48,6 +51,10 @@ export function createProgressModel({ config, subjectsById, state, passedAttempt
     return createProgressModel({ config, subjectsById, passedAttempt,
       state: { ...state, parsed: true, attempts: byCourse } });
   }
+  function previewCompletion(id) {
+    return createProgressModel({ config, subjectsById, passedAttempt,
+      state: { ...state, manualPass: { ...state.manualPass, [id]: true } } });
+  }
 
-  return { getAttempts, getCurrentAttempt, hasPassed, isPassed, isFailed, isInProgress, hasProgress, earnedCredits, isAvailableNext, getNodeStatus, availableNext, preview };
+  return { getAttempts, getCurrentAttempt, hasPassed, isPassed, isFailed, isInProgress, hasProgress, earnedCredits, isPrerequisiteSatisfied, isAvailableNext, getNodeStatus, availableNext, preview, previewCompletion };
 }

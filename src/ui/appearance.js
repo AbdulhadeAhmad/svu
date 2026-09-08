@@ -23,8 +23,6 @@ export function createAppearance({ catalog, i18n, storage, onChange }) {
       if (emptyText) emptyText.textContent = t("emptyText");
       if (emptyBtn) emptyBtn.textContent = t("emptyImport");
     }
-    const summaryToggleLabel = document.querySelector(".summary-toggle-label");
-    if (summaryToggleLabel) summaryToggleLabel.textContent = t("yourProgressTitle");
     const importTitle = document.getElementById("importTitle");
     if (importTitle) importTitle.textContent = t("importTitle");
     document.querySelectorAll("[data-i18n]").forEach(el => {

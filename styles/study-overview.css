@@ -1,25 +1,15 @@
-.study-overview {
-  padding: 18px 22px;
-  border-bottom: 1px solid var(--border);
-}
-.study-overview h3 {
-  margin-bottom: 12px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
-}
 .remaining-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .remaining-stat {
   display: flex;
   flex-direction: column;
   gap: 6px;
   padding: 12px;
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius-md);
   background: var(--surface-2);
 }
 .remaining-label { font-size: 12px; color: var(--text-muted); }
-.remaining-stat strong { font-size: 28px; line-height: 1.1; color: var(--accent); }
+.remaining-stat strong { font-size: 30px; line-height: 1.1; color: var(--accent); }
 .remaining-detail { font-size: 11px; color: var(--text-muted); }
 .study-progress-bar {
   appearance: none;
@@ -38,8 +28,8 @@
 .study-progress-bar::-moz-progress-bar { background: var(--accent); border-radius: 999px; }
 .study-note { margin-top: 8px; font-size: 11px; line-height: 1.5; color: var(--text-muted); }
 .academic-standing {
-  margin-top: 14px;
-  padding-top: 12px;
+  margin-top: 12px;
+  padding: 12px 0;
   border-top: 1px solid var(--border);
   display: grid;
   grid-template-columns: 1fr auto;

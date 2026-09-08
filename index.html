@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <title>ITE Subjects Graph - SVU</title>
-  <link rel="stylesheet" href="style.css?v=29" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body data-catalog="ite_subjects.json">
   <header>
@@ -23,9 +20,15 @@
     <div class="cat-filters" id="catFilters"></div>
     <button disabled id="langToggle" class="theme-toggle" title="Toggle language" type="button" aria-label="Toggle language">ع</button>
     <button disabled id="themeToggle" class="theme-toggle" title="Toggle dark/light theme" type="button" aria-label="Toggle theme">🌙</button>
-    <button disabled id="importBtn" class="control-btn" title="Import your exam/assignments table from SVU">
-      <span class="icon">↓</span> Import
-    </button>
+    <div class="control-actions">
+      <button disabled id="importBtn" class="control-btn" title="Import your exam/assignments table from SVU">
+        <span class="icon">↓</span> Import
+      </button>
+      <button disabled id="resetBtn" class="control-btn reset-btn" type="button" title="Clear all app progress and preferences, then reload">
+        <span class="icon" aria-hidden="true">↺</span> <span class="reset-label">Reset</span>
+      </button>
+    </div>
+    <span id="resetError" class="reset-error" role="alert" hidden></span>
   </div>
 
   <div class="layout">
@@ -38,23 +41,30 @@
       </div>
     </div>
     <aside id="info">
-      <details class="academic-rules" id="academicRules">
-        <summary id="academicRulesTitle">Registration and grading rules</summary>
-        <ul id="academicRulesList"></ul>
+      <details class="sidebar-panel academic-rules" id="academicRules">
+        <summary><span id="academicRulesTitle">Rules</span></summary>
+        <div class="panel-body"><ul id="academicRulesList"></ul></div>
       </details>
-      <section id="studyOverview" class="study-overview" aria-labelledby="studyOverviewTitle"></section>
-      <div class="info-empty" id="infoEmpty">
-        <div class="empty-icon">📚</div>
-        <div class="empty-text">Loading course data…</div>
-        <button disabled id="emptyImportBtn" class="btn btn-primary">↓ Import Exam History</button>
-      </div>
-      <section class="info-summary-section" id="summarySection" hidden>
-        <button class="summary-toggle" id="summaryToggle" aria-expanded="true" type="button">
-          <span class="summary-chev">▾</span>
-          <span class="summary-toggle-label">Your Progress</span>
-        </button>
-        <div class="summary-body" id="summaryBody"></div>
-      </section>
+      <details class="sidebar-panel" id="progressPanel" open>
+        <summary><span data-i18n="progressSection">Progress</span></summary>
+        <div class="panel-body">
+          <section id="studyOverview" class="study-overview" aria-label="Study progress"></section>
+          <section id="summarySection" hidden><div id="summaryBody"></div></section>
+          <div class="info-empty" id="infoEmpty">
+            <div class="empty-text">Loading course data…</div>
+            <button disabled id="emptyImportBtn" class="btn btn-primary">↓ Import Exam History</button>
+          </div>
+        </div>
+      </details>
+      <details class="sidebar-panel" id="availablePanel" open>
+        <summary><span data-i18n="availableNext">Available next term</span><span class="panel-count" id="availableCount">0</span></summary>
+        <div class="panel-body">
+          <div id="courseRecommendations" class="course-recommendations" hidden></div>
+          <h4 class="sidebar-caption" id="availableListTitle" data-i18n="allAvailable">All available</h4>
+          <div class="available-list" id="availableList" aria-labelledby="availableListTitle"></div>
+          <p class="study-note" id="availableEmpty"></p>
+        </div>
+      </details>
       <section class="info-detail-section" id="detailSection" hidden></section>
     </aside>
   </div>
