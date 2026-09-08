@@ -1,0 +1,95 @@
+/* =====================================================================
+   SVG node styles
+   ===================================================================== */
+.node .node-card {
+  stroke: rgba(255, 255, 255, 0.9);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 2px 4px var(--node-shadow));
+  transition: filter 0.2s;
+}
+.node:hover .node-card { filter: drop-shadow(0 4px 10px var(--node-shadow-hover)); }
+.node text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif; pointer-events: none; }
+.node .code { font-size: 12px; font-weight: 700; fill: #fff; }
+.node .name {
+  font-size: 9.5px; fill: rgba(255, 255, 255, 0.92);
+  text-anchor: middle; dominant-baseline: middle;
+}
+.node .meta-text {
+  font-size: 8.5px; fill: rgba(255, 255, 255, 0.75);
+  text-anchor: middle;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+.node .cat-icon { fill: rgba(255, 255, 255, 0.85); }
+.node .grade-overlay {
+  font-size: 10px; font-weight: 700; fill: #fff;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* Node status */
+.node .availability-outline {
+  fill: none;
+  stroke: var(--availability-accent);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 6px var(--availability-glow));
+  pointer-events: none;
+}
+.node.is-available .node-card {
+  stroke: #fff;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 3px 8px var(--availability-glow));
+}
+.node .availability-badge { fill: var(--availability-bg); stroke: none; }
+.node .availability-label {
+  fill: var(--availability-text);
+  font-size: 9.5px;
+  font-weight: 800;
+}
+.node.in-progress .node-card {
+  stroke: var(--warning);
+  stroke-width: 2.5;
+  stroke-dasharray: 4 2;
+}
+.node.is-available:hover .availability-outline {
+  filter: drop-shadow(0 0 10px var(--availability-glow));
+}
+.node.in-progress:hover .node-card {
+  filter: drop-shadow(0 4px 14px var(--highlight-glow));
+}
+
+/* Edge styles */
+.edge {
+  stroke: var(--border-strong);
+  stroke-width: 1.4;
+  fill: none;
+  opacity: 0.65;
+  transition: stroke 0.15s, opacity 0.15s, stroke-width 0.15s;
+}
+.edge.highlighted { stroke: var(--accent); stroke-width: 2.5; opacity: 1; }
+.edge.dimmed { opacity: 0.08; }
+
+/* =====================================================================
+   Zoom controls
+   ===================================================================== */
+.zoom-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  box-shadow: var(--shadow-md);
+}
+.zoom-btn {
+  width: 32px; height: 32px;
+  border: none; background: transparent;
+  font-size: 16px; cursor: pointer;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.zoom-btn:hover { background: var(--accent-soft); color: var(--accent); }

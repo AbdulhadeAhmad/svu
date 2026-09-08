@@ -7,9 +7,9 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>ITE Subjects Graph - SVU</title>
-  <link rel="stylesheet" href="style.css?v=21" />
+  <link rel="stylesheet" href="style.css?v=28" />
 </head>
-<body>
+<body data-catalog="ite_subjects.json">
   <header>
     <div class="logo">🎓</div>
     <div>
@@ -19,11 +19,11 @@
   </header>
 
   <div class="controls">
-    <input type="text" id="search" placeholder="Search by code or name…" />
+    <input disabled type="text" id="search" placeholder="Search by code or name…" />
     <div class="cat-filters" id="catFilters"></div>
-    <button id="langToggle" class="theme-toggle" title="Toggle language" type="button" aria-label="Toggle language">ع</button>
-    <button id="themeToggle" class="theme-toggle" title="Toggle dark/light theme" type="button" aria-label="Toggle theme">🌙</button>
-    <button id="importBtn" class="control-btn" title="Import your exam/assignments table from SVU">
+    <button disabled id="langToggle" class="theme-toggle" title="Toggle language" type="button" aria-label="Toggle language">ع</button>
+    <button disabled id="themeToggle" class="theme-toggle" title="Toggle dark/light theme" type="button" aria-label="Toggle theme">🌙</button>
+    <button disabled id="importBtn" class="control-btn" title="Import your exam/assignments table from SVU">
       <span class="icon">↓</span> Import
     </button>
   </div>
@@ -38,10 +38,14 @@
       </div>
     </div>
     <aside id="info">
+      <details class="academic-rules" id="academicRules">
+        <summary id="academicRulesTitle">Registration and grading rules</summary>
+        <ul id="academicRulesList"></ul>
+      </details>
       <div class="info-empty" id="infoEmpty">
         <div class="empty-icon">📚</div>
-        <div class="empty-text">Click on a subject to see its details, prerequisites, and what it unlocks.</div>
-        <button id="emptyImportBtn" class="btn btn-primary">↓ Import Exam History</button>
+        <div class="empty-text">Loading course data…</div>
+        <button disabled id="emptyImportBtn" class="btn btn-primary">↓ Import Exam History</button>
       </div>
       <section class="info-summary-section" id="summarySection" hidden>
         <button class="summary-toggle" id="summaryToggle" aria-expanded="true" type="button">
@@ -62,12 +66,8 @@
         <button class="modal-close" id="modalCloseBtn" aria-label="Close">×</button>
       </div>
       <div class="modal-body">
-        <p class="modal-hint">
-          Paste the <strong>exam/assignments table</strong> from the SVU exam page below.
-          We detect any course you've signed up for — passed <em>or</em> failed — and treat it as fulfilling its prerequisites.
-          Only the table is needed; the rest of the page is ignored.
-        </p>
-        <textarea id="examTextarea" placeholder="Paste the table here, e.g.&#10;1&#9;&#9;ITE_BAS401_C1_C2_C3_S22_assignment_1_2022-12-29&#9;2022-12-29 09:00:00&#9;2022-12-29 09:00:00&#9;Archive&#9;80.41&#10;2&#9;&#9;ITE_BPG401_..."></textarea>
+        <p class="modal-hint"></p>
+        <textarea id="examTextarea" aria-label="Exam history table" placeholder="Paste your exam/assignments table here…"></textarea>
         <div class="parse-result" id="parseResult" hidden>
           <div class="parse-summary" id="parseSummary"></div>
         </div>
@@ -82,7 +82,6 @@
     </div>
   </div>
 
-  <script src="data.js?v=21"></script>
-  <script src="app.js?v=21"></script>
+  <script type="module" src="src/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,9 @@
+/* Data-driven controls and rule details */
+.academic-rules { padding: 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+.academic-rules summary { cursor: pointer; font-weight: 600; }
+.academic-rules ul { padding-inline-start: 20px; line-height: 1.6; }
+.academic-rules li + li { margin-top: 8px; }
+[hidden] { display: none !important; }
+button:disabled, input:disabled, select:disabled { opacity: 0.6; cursor: wait; }
+
+.controls .theme-toggle, .controls .control-btn { margin: 0; flex-shrink: 0; }

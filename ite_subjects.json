@@ -8,17 +8,123 @@
       {
         "code": "SE",
         "name": "Software Engineering",
-        "nameAr": "هندسة البرمجيات"
+        "nameAr": "هندسة البرمجيات",
+        "tracks": [
+          {
+            "code": "DS",
+            "name": "Data Science",
+            "nameAr": "علم البيانات",
+            "subjects": [
+              "DSA601",
+              "DDV601",
+              "SDE601",
+              "SDB601",
+              "DNI601",
+              "DOB601",
+              "DPD601",
+              "DBD601",
+              "SIR601",
+              "SSW601"
+            ]
+          },
+          {
+            "code": "SD",
+            "name": "Software Development",
+            "nameAr": "تطوير البرمجيات",
+            "subjects": [
+              "SSE602",
+              "SSQ601",
+              "SAD601",
+              "SDE601",
+              "SCP601",
+              "SDA601",
+              "SDB601",
+              "SDBL601",
+              "SIR601",
+              "SSW601"
+            ]
+          }
+        ]
       },
       {
         "code": "AI",
         "name": "Artificial Intelligence",
-        "nameAr": "الذكاء الصنعي"
+        "nameAr": "الذكاء الصنعي",
+        "tracks": [
+          {
+            "code": "ML",
+            "name": "Machine Learning",
+            "nameAr": "التعلم الآلي",
+            "subjects": [
+              "AML601",
+              "MDA601",
+              "MBC601",
+              "MDL601",
+              "ANN601",
+              "ANL601",
+              "AIP601",
+              "ACV601",
+              "SIR601"
+            ]
+          },
+          {
+            "code": "IS",
+            "name": "Intelligent Systems",
+            "nameAr": "الأنظمة الذكية",
+            "subjects": [
+              "AES601",
+              "AML601",
+              "ANN601",
+              "AIP601",
+              "ANL601",
+              "ACV601",
+              "AVR601",
+              "SIR601",
+              "SSW601"
+            ]
+          }
+        ]
       },
       {
         "code": "SCN",
         "name": "Systems and Computer Networks",
-        "nameAr": "النظم والشبكات الحاسوبية"
+        "nameAr": "النظم والشبكات الحاسوبية",
+        "tracks": [
+          {
+            "code": "CS",
+            "name": "Cybersecurity",
+            "nameAr": "الأمن السيبراني",
+            "subjects": [
+              "CSM601",
+              "CIR601",
+              "NOS601",
+              "NDS601",
+              "CSO601",
+              "CEH601",
+              "NNT601",
+              "CMS601",
+              "CCR601",
+              "NSS601"
+            ]
+          },
+          {
+            "code": "NS",
+            "name": "Network Systems",
+            "nameAr": "أنظمة الشبكات",
+            "subjects": [
+              "NOSL601",
+              "NOS601",
+              "NDS601",
+              "NNS601",
+              "NRT601",
+              "NNT601",
+              "NNM601",
+              "NNP601",
+              "NCA601",
+              "NSS601"
+            ]
+          }
+        ]
       }
     ],
     "program_goals": [
@@ -98,7 +204,9 @@
         "credits": 3,
         "level": 3,
         "prerequisites": [],
-        "category": "general"
+        "category": "general",
+        "registration_credits": 1,
+        "prerequisite_policy": "passed"
       },
       {
         "id": "GEN401",
@@ -107,7 +215,9 @@
         "credits": 3,
         "level": 4,
         "prerequisites": ["GEN301"],
-        "category": "general"
+        "category": "general",
+        "registration_credits": 1,
+        "prerequisite_policy": "passed"
       },
       {
         "id": "GMN401",
@@ -126,7 +236,9 @@
         "credits": 3,
         "level": 5,
         "prerequisites": ["GEN401"],
-        "category": "general"
+        "category": "general",
+        "registration_credits": 1,
+        "prerequisite_policy": "passed"
       },
       {
         "id": "GEN502",
@@ -135,7 +247,9 @@
         "credits": 3,
         "level": 5,
         "prerequisites": ["GEN501"],
-        "category": "general"
+        "category": "general",
+        "registration_credits": 1,
+        "prerequisite_policy": "passed"
       },
       {
         "id": "GAC501",
@@ -153,7 +267,7 @@
         "nameAr": "إدارة المشاريع المعلوماتية",
         "credits": 6,
         "level": 6,
-        "prerequisites": ["BSE501"],
+        "prerequisites": ["BSE601"],
         "category": "general",
         "description": "Introduces the student to basic concepts of IT project management in practical and realistic ways. Learning outcomes include: understanding project life cycle and project management role; understanding project management methods; understanding how to implement the project, monitor, and evaluate it; understanding the integration of the project with the institutional environment."
       },
@@ -164,7 +278,9 @@
         "credits": 3,
         "level": 6,
         "prerequisites": ["GEN502"],
-        "category": "general"
+        "category": "general",
+        "registration_credits": 1,
+        "prerequisite_policy": "passed"
       },
       {
         "id": "GET601",
@@ -344,8 +460,7 @@
         "nameAr": "مخبر نظم قواعد البيانات (1)",
         "credits": 4,
         "level": 5,
-        "prerequisites": ["BDB501"],
-        "concurrent": "BDB501",
+        "prerequisites": ["BDA501"],
         "category": "basic",
         "description": "Practical lab covering Database Systems I content using Oracle12i server. Learning outcomes include: knowing general environment and interface of Oracle12i and creating databases; knowing logical and physical architecture of Oracle12i."
       },
@@ -375,8 +490,7 @@
         "nameAr": "مخبر نظم التشغيل (1)",
         "credits": 4,
         "level": 5,
-        "prerequisites": ["BOS501"],
-        "concurrent": "BOS501",
+        "prerequisites": ["BCA501", "BPG402"],
         "category": "basic",
         "description": "Practical lab introducing the practical side of Operating Systems I. Students will use and work with operating systems. Learning outcomes include: practical practice of Windows operating system; practical practice of files and library management in Windows; practical practice of Linux; practical practice of files and library management in Linux; writing batch files in Windows and shell in Linux; writing simple programs for main operating systems."
       },
@@ -466,7 +580,7 @@
         "nameAr": "مشروع (1)",
         "credits": 6,
         "level": 6,
-        "prerequisites": ["BIS601"],
+        "prerequisites": ["BID601"],
         "additional_requirements": "Obtain at least 180 credit units",
         "category": "basic",
         "description": "A general project that the student can choose after passing at least 180 credit units. Extends over a full academic year, and the topic must be consistent with the student's chosen specialization."
@@ -570,10 +684,11 @@
         "nameAr": "هندسة البرمجيات (2) (باللغة الإنكليزية)",
         "credits": 5,
         "level": 6,
-        "prerequisites": ["GPM601", "GEN601"],
+        "prerequisites": ["GPM601", "GEN502"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Deals with advanced concepts in software engineering field like definitions of software quality and how to verify them. Learning outcomes include: verification of operational and non-operational requirements; patterns and advanced models; model design; MVC model."
+        "description": "Deals with advanced concepts in software engineering field like definitions of software quality and how to verify them. Learning outcomes include: verification of operational and non-operational requirements; patterns and advanced models; model design; MVC model.",
+        "tracks": ["SD"]
       },
       {
         "id": "SDA601",
@@ -584,7 +699,8 @@
         "prerequisites": ["BDA501", "BIA601"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Aims to present the advanced concepts in designing algorithms and estimating their performance. Learning outcomes include: using binomial heaps; using B-trees; using shortest path; using graphs and trees; using Fibonacci heaps."
+        "description": "Aims to present the advanced concepts in designing algorithms and estimating their performance. Learning outcomes include: using binomial heaps; using B-trees; using shortest path; using graphs and trees; using Fibonacci heaps.",
+        "tracks": ["SD"]
       },
       {
         "id": "SAD601",
@@ -595,7 +711,8 @@
         "prerequisites": ["SDA601"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Covers \"analytical and design algorithms\" course, which is a continuation of the data structures and algorithms 1 and 2. It contains computer algorithms, especially search, and analysis. Learning outcomes include: using A* algorithm; applying the traveling salesman problem; using random algorithms; using Minimax algorithm; using alpha-beta algorithm."
+        "description": "Covers \"analytical and design algorithms\" course, which is a continuation of the data structures and algorithms 1 and 2. It contains computer algorithms, especially search, and analysis. Learning outcomes include: using A* algorithm; applying the traveling salesman problem; using random algorithms; using Minimax algorithm; using alpha-beta algorithm.",
+        "tracks": ["SD"]
       },
       {
         "id": "SDB601",
@@ -606,7 +723,8 @@
         "prerequisites": ["BDB501", "BIA601"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Covers methods that enable the student to acquire the necessary skills to deal with various types and applications of database rules. Learning outcomes include: developing database rule management systems; transactions; central, distributable, and cluster rules; design and development of applications; connecting with programming languages rules; applying advanced database rules."
+        "description": "Covers methods that enable the student to acquire the necessary skills to deal with various types and applications of database rules. Learning outcomes include: developing database rule management systems; transactions; central, distributable, and cluster rules; design and development of applications; connecting with programming languages rules; applying advanced database rules.",
+        "tracks": ["DS", "SD"]
       },
       {
         "id": "SDBL601",
@@ -614,11 +732,11 @@
         "nameAr": "مخبر نظم قواعد البيانات (2)",
         "credits": 4,
         "level": 6,
-        "prerequisites": ["SDB601"],
-        "concurrent": "SDB601",
+        "prerequisites": ["BDB501", "BIA601"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Practical lab covering Database Systems II using Oracle12i server. Learning outcomes include: mastering basics of Oracle administration and security; mastering backup management."
+        "description": "Practical lab covering Database Systems II using Oracle12i server. Learning outcomes include: mastering basics of Oracle administration and security; mastering backup management.",
+        "tracks": ["SD"]
       },
       {
         "id": "SDE601",
@@ -626,10 +744,11 @@
         "nameAr": "التنقيب في البيانات",
         "credits": 6,
         "level": 6,
-        "prerequisites": ["BPS601", "BID601", "SSE602"],
+        "prerequisites": ["BPS601", "BID601"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Provides understanding of the methods used in the mining of data and how to determine and create it, the necessary knowledge of the data and its forms, and how to apply mining methods. Learning outcomes include: understanding importance of data repositories and mining; ability to plan, design, and build data repositories; ability to determine the appropriate repository structure to build and choose the appropriate algorithm; familiarity with how to deal with inconsistencies; ability to design and evaluate mining to make strategic decisions; familiarity with statistical methods and data analysis; understanding the data analysis process and structural description of data; familiarity with the use of programming language in data analysis and processing."
+        "description": "Provides understanding of the methods used in the mining of data and how to determine and create it, the necessary knowledge of the data and its forms, and how to apply mining methods. Learning outcomes include: understanding importance of data repositories and mining; ability to plan, design, and build data repositories; ability to determine the appropriate repository structure to build and choose the appropriate algorithm; familiarity with how to deal with inconsistencies; ability to design and evaluate mining to make strategic decisions; familiarity with statistical methods and data analysis; understanding the data analysis process and structural description of data; familiarity with the use of programming language in data analysis and processing.",
+        "tracks": ["DS", "SD"]
       },
       {
         "id": "SCP601",
@@ -640,7 +759,8 @@
         "prerequisites": ["BCM601", "SSE602"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Aims to provide a description for a programming language translator and build a complete translator for a programming language. Learning outcomes include: building a complete translator for a language; building a lexical analyzer; building a grammar analyzer and internal language; building code generator (a hypothetical language or hypothetical machine)."
+        "description": "Aims to provide a description for a programming language translator and build a complete translator for a programming language. Learning outcomes include: building a complete translator for a language; building a lexical analyzer; building a grammar analyzer and internal language; building code generator (a hypothetical language or hypothetical machine).",
+        "tracks": ["SD"]
       },
       {
         "id": "SIR601",
@@ -648,10 +768,11 @@
         "nameAr": "استرجاع المعلومات",
         "credits": 6,
         "level": 6,
-        "prerequisites": ["BDA501", "BDM501", "SSE602"],
+        "prerequisites": ["BDA501", "BDM501"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Teaches students the basics of information retrieval by understanding the basics that depend on text, indexing, and how to search, and how to use the information available in text, images, and other used in text, and understanding different methods used to determine the relevance of text, and the quality of how to use it to retrieve data and information. Learning outcomes include: introduction to information retrieval; text processing; indexing; logical and extended Boolean model; vector space model; evaluating information retrieval systems; search engines; link analysis algorithms; image retrieval based on content."
+        "description": "Teaches students the basics of information retrieval by understanding the basics that depend on text, indexing, and how to search, and how to use the information available in text, images, and other used in text, and understanding different methods used to determine the relevance of text, and the quality of how to use it to retrieve data and information. Learning outcomes include: introduction to information retrieval; text processing; indexing; logical and extended Boolean model; vector space model; evaluating information retrieval systems; search engines; link analysis algorithms; image retrieval based on content.",
+        "tracks": ["DS", "SD"]
       },
       {
         "id": "SSW601",
@@ -659,10 +780,11 @@
         "nameAr": "الويب الدلالي",
         "credits": 6,
         "level": 6,
-        "prerequisites": ["BWP501", "SDE601"],
+        "prerequisites": ["BWP501"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Covers the basics of semantic web, technologies used, and tools that include knowledge representation and linking. Learning outcomes include: basics of semantic web; representation languages (RDF, RDF Schema, OWL, etc.); ontology and knowledge base development; semantic thinking in OWL and RDF; commercial tools and open source web 3.0."
+        "description": "Covers the basics of semantic web, technologies used, and tools that include knowledge representation and linking. Learning outcomes include: basics of semantic web; representation languages (RDF, RDF Schema, OWL, etc.); ontology and knowledge base development; semantic thinking in OWL and RDF; commercial tools and open source web 3.0.",
+        "tracks": ["DS", "SD"]
       },
       {
         "id": "SSQ601",
@@ -673,7 +795,74 @@
         "prerequisites": ["SSE602"],
         "category": "specialization",
         "specialization": "SE",
-        "description": "Aims to ensure importance of quality in the development of information, and development starting from planning stage to the testing and maintenance stage. Learning outcomes include: familiarity with CMM, a model for software system quality; ability to perform all stages of software development according to the international standards; knowledge of tools and methods and technical specifications used in software testing; familiarity with quality system testing tools and software testing operations."
+        "description": "Aims to ensure importance of quality in the development of information, and development starting from planning stage to the testing and maintenance stage. Learning outcomes include: familiarity with CMM, a model for software system quality; ability to perform all stages of software development according to the international standards; knowledge of tools and methods and technical specifications used in software testing; familiarity with quality system testing tools and software testing operations.",
+        "tracks": ["SD"]
+      },
+      {
+        "id": "DSA601",
+        "name": "Statistics and Data Analysis",
+        "nameAr": "الإحصاء وتحليل البيانات",
+        "credits": 4,
+        "level": 6,
+        "prerequisites": ["BPS601"],
+        "category": "specialization",
+        "specialization": "SE",
+        "tracks": ["DS"]
+      },
+      {
+        "id": "DDV601",
+        "name": "Data Visualization",
+        "nameAr": "التمثيل المرئي للبيانات",
+        "credits": 5,
+        "level": 6,
+        "prerequisites": ["DSA601", "BWP501"],
+        "category": "specialization",
+        "specialization": "SE",
+        "tracks": ["DS"]
+      },
+      {
+        "id": "DNI601",
+        "name": "NoSQL Databases",
+        "nameAr": "قواعد بيانات NoSQL",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["BDB501"],
+        "category": "specialization",
+        "specialization": "SE",
+        "tracks": ["DS"]
+      },
+      {
+        "id": "DOB601",
+        "name": "Open Data and Big Data",
+        "nameAr": "البيانات المفتوحة والبيانات الضخمة",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["BDB501"],
+        "category": "specialization",
+        "specialization": "SE",
+        "tracks": ["DS"]
+      },
+      {
+        "id": "DPD601",
+        "name": "Programming for Data Science",
+        "nameAr": "برمجة خاصة بعلم البيانات",
+        "credits": 5,
+        "level": 6,
+        "prerequisites": ["BDB501", "BPG601"],
+        "category": "specialization",
+        "specialization": "SE",
+        "tracks": ["DS"]
+      },
+      {
+        "id": "DBD601",
+        "name": "Advanced Topics in Big Data",
+        "nameAr": "مواضيع متقدمة في البيانات الضخمة",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["DOB601", "DPD601"],
+        "category": "specialization",
+        "specialization": "SE",
+        "tracks": ["DS"]
       }
     ],
     "artificial_intelligence_AI": [
@@ -686,7 +875,8 @@
         "prerequisites": ["BAI501", "BIA601"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Covers neural networks and the general logic, and machinery of training and its different types, the various training algorithms. Learning outcomes include: Rosenblatt's neuron; perceptron learning model; the middle perceptron algorithm; multilayer neural networks; RBF networks; self-organization theory and regulation; neural networks mathematics and training by back; fuzzy logic; collections, operations, relationships, and rules; design of general systems; general sets of regulations."
+        "description": "Covers neural networks and the general logic, and machinery of training and its different types, the various training algorithms. Learning outcomes include: Rosenblatt's neuron; perceptron learning model; the middle perceptron algorithm; multilayer neural networks; RBF networks; self-organization theory and regulation; neural networks mathematics and training by back; fuzzy logic; collections, operations, relationships, and rules; design of general systems; general sets of regulations.",
+        "tracks": ["ML", "IS"]
       },
       {
         "id": "AVR601",
@@ -697,7 +887,8 @@
         "prerequisites": ["BMM601", "ACV601"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Covers the main concepts of virtual reality. Learning outcomes include: 3D human, sound, and movement; input and output devices, display, and touch; three-dimensional data representation, simulation, and display; virtual reality truth, virtual reality network, and virtual reality merged."
+        "description": "Covers the main concepts of virtual reality. Learning outcomes include: 3D human, sound, and movement; input and output devices, display, and touch; three-dimensional data representation, simulation, and display; virtual reality truth, virtual reality network, and virtual reality merged.",
+        "tracks": ["IS"]
       },
       {
         "id": "AML601",
@@ -705,10 +896,11 @@
         "nameAr": "تعلم الآلة",
         "credits": 6,
         "level": 6,
-        "prerequisites": ["BPS601", "BAI501", "ANL601"],
+        "prerequisites": ["BPS601", "BAI501"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Provides a comprehensive introduction to machine learning, and knowledge on social patterns. Learning outcomes include: machine learning concepts and classification; learning with decision trees and neural networks; evaluating assumptions and using Byes method; learning with comprehensive algorithms and rules; combining multiple models; machine learning analysis, intuitive learning, and decision tree learning."
+        "description": "Provides a comprehensive introduction to machine learning, and knowledge on social patterns. Learning outcomes include: machine learning concepts and classification; learning with decision trees and neural networks; evaluating assumptions and using Byes method; learning with comprehensive algorithms and rules; combining multiple models; machine learning analysis, intuitive learning, and decision tree learning.",
+        "tracks": ["ML", "IS"]
       },
       {
         "id": "ANL601",
@@ -719,7 +911,8 @@
         "prerequisites": ["BAI501", "AIP601"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Covers the application of computing sciences to the processing and analysis of natural languages. Learning outcomes include: formal and grammatical form of the language; grammatical analysis models; lexical analysis; most important applications of natural language processing."
+        "description": "Covers the application of computing sciences to the processing and analysis of natural languages. Learning outcomes include: formal and grammatical form of the language; grammatical analysis models; lexical analysis; most important applications of natural language processing.",
+        "tracks": ["ML", "IS"]
       },
       {
         "id": "AES601",
@@ -730,7 +923,8 @@
         "prerequisites": ["BAI501", "GPM601"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Covers the bases and methods of knowledge representation, and inference engines and knowledge engineering, and how to design an expert system that uses general and specialized knowledge. Learning outcomes include: structure of expert system; knowledge representation mechanisms; building an expert system that depends on rules and facts; general and expert knowledge; general systems and expert systems."
+        "description": "Covers the bases and methods of knowledge representation, and inference engines and knowledge engineering, and how to design an expert system that uses general and specialized knowledge. Learning outcomes include: structure of expert system; knowledge representation mechanisms; building an expert system that depends on rules and facts; general and expert knowledge; general systems and expert systems.",
+        "tracks": ["IS"]
       },
       {
         "id": "AIP601",
@@ -738,10 +932,11 @@
         "nameAr": "معالجة الصورة الرقمية (باللغة الإنكليزية)",
         "credits": 6,
         "level": 6,
-        "prerequisites": ["BCG601", "GEN601", "BIA601"],
+        "prerequisites": ["BCG601", "GEN502", "BIA601"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Covers the main concepts of digital image processing, methods of forming, refining, and recovering digital images. Learning outcomes include: image formation and refining; improvement of image in spatial and frequency domain; image recovery and reproduction; image processing."
+        "description": "Covers the main concepts of digital image processing, methods of forming, refining, and recovering digital images. Learning outcomes include: image formation and refining; improvement of image in spatial and frequency domain; image recovery and reproduction; image processing.",
+        "tracks": ["ML", "IS"]
       },
       {
         "id": "ACV601",
@@ -752,7 +947,8 @@
         "prerequisites": ["AIP601"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Covers basics of forming images, and computer engineering and related learning in deep, and understanding advanced techniques for image classification. Learning outcomes include: theoretical and practical aspects of computer processing of images; basics of image formation, preparation, and processing; image and noise compatibility; relationships between mathematical engineering and three-dimensional engineering; technical side of identification, image classification, and deep learning for image."
+        "description": "Covers basics of forming images, and computer engineering and related learning in deep, and understanding advanced techniques for image classification. Learning outcomes include: theoretical and practical aspects of computer processing of images; basics of image formation, preparation, and processing; image and noise compatibility; relationships between mathematical engineering and three-dimensional engineering; technical side of identification, image classification, and deep learning for image.",
+        "tracks": ["ML", "IS"]
       },
       {
         "id": "SIR601",
@@ -763,7 +959,8 @@
         "prerequisites": ["BDA501", "BDM501"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Teaches students the basics of information retrieval by understanding the basics that depend on text, indexing, and how to search, and how to use the information available in text, images, and other used in text, and understanding different methods used to determine the relevance of text, and the quality of how to use it to retrieve data and information. Learning outcomes include: introduction to information retrieval; text processing; indexing; logical and extended Boolean model; vector space model; evaluating information retrieval systems; search engines; link analysis algorithms; image retrieval based on content."
+        "description": "Teaches students the basics of information retrieval by understanding the basics that depend on text, indexing, and how to search, and how to use the information available in text, images, and other used in text, and understanding different methods used to determine the relevance of text, and the quality of how to use it to retrieve data and information. Learning outcomes include: introduction to information retrieval; text processing; indexing; logical and extended Boolean model; vector space model; evaluating information retrieval systems; search engines; link analysis algorithms; image retrieval based on content.",
+        "tracks": ["ML", "IS"]
       },
       {
         "id": "SSW601",
@@ -774,7 +971,41 @@
         "prerequisites": ["BWP501"],
         "category": "specialization",
         "specialization": "AI",
-        "description": "Covers the basics of semantic web, technologies used, and tools that include knowledge representation and linking. Learning outcomes include: basics of semantic web; representation languages (RDF, RDF Schema, OWL, etc.); ontology and knowledge base development; semantic thinking in OWL and RDF; commercial tools and open source web 3.0."
+        "description": "Covers the basics of semantic web, technologies used, and tools that include knowledge representation and linking. Learning outcomes include: basics of semantic web; representation languages (RDF, RDF Schema, OWL, etc.); ontology and knowledge base development; semantic thinking in OWL and RDF; commercial tools and open source web 3.0.",
+        "tracks": ["IS"]
+      },
+      {
+        "id": "MDA601",
+        "name": "Big Data Analysis",
+        "nameAr": "تحليل البيانات الضخمة",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["BAI501", "BIA601"],
+        "category": "specialization",
+        "specialization": "AI",
+        "tracks": ["ML"]
+      },
+      {
+        "id": "MBC601",
+        "name": "Internet of Things and Blockchain",
+        "nameAr": "إنترنت الأشياء وسلاسل الكتل",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["BAI501", "BIA601"],
+        "category": "specialization",
+        "specialization": "AI",
+        "tracks": ["ML"]
+      },
+      {
+        "id": "MDL601",
+        "name": "Deep Learning",
+        "nameAr": "التعلم العميق",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["BAI501", "BIA601"],
+        "category": "specialization",
+        "specialization": "AI",
+        "tracks": ["ML"]
       }
     ],
     "systems_and_computer_networks_SCN": [
@@ -787,7 +1018,8 @@
         "prerequisites": ["BCA501", "BIA601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Deals with the design of modern processors, the relationship between them and memory, and memory organization. The course also covers the importance of cache memory. Learning outcomes include: designing processors by overlapping (Pipelining), specification, and instruction set; designing multiple processors; ways of designing cache memory and memory; parallel processors, multiprocessors, and memory supercomputers."
+        "description": "Deals with the design of modern processors, the relationship between them and memory, and memory organization. The course also covers the importance of cache memory. Learning outcomes include: designing processors by overlapping (Pipelining), specification, and instruction set; designing multiple processors; ways of designing cache memory and memory; parallel processors, multiprocessors, and memory supercomputers.",
+        "tracks": ["NS"]
       },
       {
         "id": "NNP601",
@@ -798,7 +1030,8 @@
         "prerequisites": ["BPG402", "BNT501", "BIA601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Introduces the student to some advanced techniques in network programming, multiple applications using multiple software technologies, Java, RMI, RPC techniques, and web services technology. Learning outcomes include: understanding advanced basics of network programming suitable for multiple applications; understanding basics of multiple software techniques for implementation using Java, and protocols and related super-technologies; understanding techniques of RMI and RPC and how to use them; understanding advanced basics of web services technology and its relationship to network programming."
+        "description": "Introduces the student to some advanced techniques in network programming, multiple applications using multiple software technologies, Java, RMI, RPC techniques, and web services technology. Learning outcomes include: understanding advanced basics of network programming suitable for multiple applications; understanding basics of multiple software techniques for implementation using Java, and protocols and related super-technologies; understanding techniques of RMI and RPC and how to use them; understanding advanced basics of web services technology and its relationship to network programming.",
+        "tracks": ["NS"]
       },
       {
         "id": "NNS601",
@@ -809,7 +1042,8 @@
         "prerequisites": ["BNT501", "NOS601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Covers study of some protocols used on the internet in Application Layer, like HTTP, FTP, etc. Also covers TCP/IP network services and their basic technologies. Learning outcomes include: understanding the mechanism of working basic internet services like email and web service, and its mechanism of authentication of messages, and access to evidence, and the concept of naming; understanding the general specification for protocols and technologies of the internet; understanding the package structure exchange between client and server; analyzing packets that pass through the network, and understanding the service or protocol they belong to; understanding the specific specification of protocols and technologies."
+        "description": "Covers study of some protocols used on the internet in Application Layer, like HTTP, FTP, etc. Also covers TCP/IP network services and their basic technologies. Learning outcomes include: understanding the mechanism of working basic internet services like email and web service, and its mechanism of authentication of messages, and access to evidence, and the concept of naming; understanding the general specification for protocols and technologies of the internet; understanding the package structure exchange between client and server; analyzing packets that pass through the network, and understanding the service or protocol they belong to; understanding the specific specification of protocols and technologies.",
+        "tracks": ["NS"]
       },
       {
         "id": "NNT601",
@@ -820,7 +1054,8 @@
         "prerequisites": ["BNT501", "NOS601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Covers the basics of how to communicate with computers and technologies used in building networks that meet the needs of the user, which require specific specifications to build a computer network, and at the level of network and program needs. Learning outcomes include: clarifying the most important parts of internet network; protocols used in network management; ways to provide good services on network; enabling the construction and running of main network components for the internet."
+        "description": "Covers the basics of how to communicate with computers and technologies used in building networks that meet the needs of the user, which require specific specifications to build a computer network, and at the level of network and program needs. Learning outcomes include: clarifying the most important parts of internet network; protocols used in network management; ways to provide good services on network; enabling the construction and running of main network components for the internet.",
+        "tracks": ["CS", "NS"]
       },
       {
         "id": "NOS601",
@@ -828,10 +1063,11 @@
         "nameAr": "نظم التشغيل (2) (باللغة الإنكليزية)",
         "credits": 4,
         "level": 6,
-        "prerequisites": ["BOS501", "GEN601", "GPM601"],
+        "prerequisites": ["BOS501", "GEN502", "GPM601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Covers the memory management concept, storage, and ways of storage, and access and exit to/from systems, files and database systems, and the concept of distributed systems and distribution. Learning outcomes include: memory management and main memory and storage; file storage structure and its administration; file system and its protection; input/output system structure; allocation of distribution and distribution."
+        "description": "Covers the memory management concept, storage, and ways of storage, and access and exit to/from systems, files and database systems, and the concept of distributed systems and distribution. Learning outcomes include: memory management and main memory and storage; file storage structure and its administration; file system and its protection; input/output system structure; allocation of distribution and distribution.",
+        "tracks": ["CS", "NS"]
       },
       {
         "id": "NOSL601",
@@ -839,11 +1075,11 @@
         "nameAr": "مخبر نظم التشغيل (2)",
         "credits": 4,
         "level": 6,
-        "prerequisites": ["NOS601"],
-        "concurrent": "NOS601",
+        "prerequisites": ["BOS501", "GEN502", "GPM601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Practical lab for the practical side of Operating Systems II, which enables the student to manage services and products of both operating systems Linux and Windows. Learning outcomes include: enabling management of processes, network services of Windows and Linux; enabling files management of each system; enabling management of network domain for each of the operating systems."
+        "description": "Practical lab for the practical side of Operating Systems II, which enables the student to manage services and products of both operating systems Linux and Windows. Learning outcomes include: enabling management of processes, network services of Windows and Linux; enabling files management of each system; enabling management of network domain for each of the operating systems.",
+        "tracks": ["NS"]
       },
       {
         "id": "NNM601",
@@ -854,7 +1090,8 @@
         "prerequisites": ["NNT601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Introduces the student to define network management using protocols and technologies used. Learning outcomes include: knowing how to manage networks using protocols like rmon.snmp; application of SNMP to retrieve information from information repository in the database of information MIB; knowing other network management methods like mobile agents."
+        "description": "Introduces the student to define network management using protocols and technologies used. Learning outcomes include: knowing how to manage networks using protocols like rmon.snmp; application of SNMP to retrieve information from information repository in the database of information MIB; knowing other network management methods like mobile agents.",
+        "tracks": ["NS"]
       },
       {
         "id": "NSS601",
@@ -865,7 +1102,8 @@
         "prerequisites": ["BIS601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Introduces security issues in computer networks and tools used to solve these problems, whether for detection or prevention. Learning outcomes include: familiarity with information security communities in computer networks; knowledge of security protocols applied on the network layer like IPSEC; knowledge of security protocols applied on the transport layer like TLS; knowledge of security protocols applied on the application layer like S/MIME; knowledge of security protocols that perform on a specific level of network design like firewalls and IDS; knowledge of security protocols applied on wireless networks like 802.11."
+        "description": "Introduces security issues in computer networks and tools used to solve these problems, whether for detection or prevention. Learning outcomes include: familiarity with information security communities in computer networks; knowledge of security protocols applied on the network layer like IPSEC; knowledge of security protocols applied on the transport layer like TLS; knowledge of security protocols applied on the application layer like S/MIME; knowledge of security protocols that perform on a specific level of network design like firewalls and IDS; knowledge of security protocols applied on wireless networks like 802.11.",
+        "tracks": ["CS", "NS"]
       },
       {
         "id": "NDS601",
@@ -876,7 +1114,8 @@
         "prerequisites": ["NOS601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Covers distributed systems concept, architecture, and models of distribution, and methods of communication between different systems, and synchronizing between them, and the way of extending the services it provides to the cloud computing. Learning outcomes include: features of distributed systems, models and distribution technology; enabling and processing procedures in distributed systems; distributed files and memory systems; permanent support for cloud computing and data centers; cloud computing and storage services; cloud computing and software models (MapReduce, Hadoop)."
+        "description": "Covers distributed systems concept, architecture, and models of distribution, and methods of communication between different systems, and synchronizing between them, and the way of extending the services it provides to the cloud computing. Learning outcomes include: features of distributed systems, models and distribution technology; enabling and processing procedures in distributed systems; distributed files and memory systems; permanent support for cloud computing and data centers; cloud computing and storage services; cloud computing and software models (MapReduce, Hadoop).",
+        "tracks": ["CS", "NS"]
       },
       {
         "id": "NRT601",
@@ -887,7 +1126,74 @@
         "prerequisites": ["NOS601", "NNS601"],
         "category": "specialization",
         "specialization": "SCN",
-        "description": "Covers the concept of real-time systems, the main concepts and main problems used in design and analysis of real-time systems, and the rules of data and communications of real time. Learning outcomes include: applications of real-time systems and their properties; types of multi-task environment; resource sharing and reaching; data and communications rules of real time."
+        "description": "Covers the concept of real-time systems, the main concepts and main problems used in design and analysis of real-time systems, and the rules of data and communications of real time. Learning outcomes include: applications of real-time systems and their properties; types of multi-task environment; resource sharing and reaching; data and communications rules of real time.",
+        "tracks": ["NS"]
+      },
+      {
+        "id": "CSM601",
+        "name": "Security Management",
+        "nameAr": "إدارة الأمن",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["GPM601"],
+        "category": "specialization",
+        "specialization": "SCN",
+        "tracks": ["CS"]
+      },
+      {
+        "id": "CIR601",
+        "name": "Security Incident Response",
+        "nameAr": "الاستجابة للأحداث الأمنية",
+        "credits": 4,
+        "level": 6,
+        "prerequisites": ["GPM601"],
+        "category": "specialization",
+        "specialization": "SCN",
+        "tracks": ["CS"]
+      },
+      {
+        "id": "CSO601",
+        "name": "Operating Systems Security",
+        "nameAr": "أمن نظم التشغيل",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["NOS601"],
+        "category": "specialization",
+        "specialization": "SCN",
+        "tracks": ["CS"]
+      },
+      {
+        "id": "CEH601",
+        "name": "Ethical Hacking",
+        "nameAr": "الاختراق الأخلاقي",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["CSO601", "CCR601"],
+        "category": "specialization",
+        "specialization": "SCN",
+        "tracks": ["CS"]
+      },
+      {
+        "id": "CMS601",
+        "name": "Security in Modern Systems",
+        "nameAr": "الأمن في النظم الحديثة",
+        "credits": 6,
+        "level": 6,
+        "prerequisites": ["NNT601", "BIS601"],
+        "category": "specialization",
+        "specialization": "SCN",
+        "tracks": ["CS"]
+      },
+      {
+        "id": "CCR601",
+        "name": "Cryptographic Systems",
+        "nameAr": "نظم التعمية",
+        "credits": 5,
+        "level": 6,
+        "prerequisites": ["BPG601"],
+        "category": "specialization",
+        "specialization": "SCN",
+        "tracks": ["CS"]
       }
     ]
   },
@@ -943,7 +1249,7 @@
       "project_I": {
         "course": "BPR601",
         "credits_earned_required": 180,
-        "additional_prerequisite": "BIS601",
+        "additional_prerequisite": "BID601",
         "duration": "Full academic year",
         "description": "General project"
       },
@@ -964,6 +1270,191 @@
       "mid_semester": "30%",
       "activities": "30%",
       "final_exam": "40%"
+    },
+    "prerequisite_registration_rules": {
+      "default": "Prior registration in a prerequisite is sufficient, even if the student failed it.",
+      "english_levels": "The preceding English level must be passed before registering for the next level.",
+      "nameAr": "يكفي التسجيل السابق بالأسبقية ولو رسب الطالب، باستثناء مستويات اللغة الإنجليزية التي تتطلب النجاح بالمستوى السابق."
+    },
+    "semester_registration_credits": {
+      "minimum": 16,
+      "maximum": 36
+    },
+    "year_promotion_minimum_credits": {
+      "2": 40,
+      "3": 100,
+      "4": 160,
+      "5": 220
+    },
+    "specialization_selection": {
+      "mandatory": true,
+      "minimum_earned_credits": 160
+    },
+    "english_credit_accounting": {
+      "registration_credits_per_level": 1,
+      "earned_credits_per_passed_level": 3
+    }
+  },
+  "source_metadata": {
+    "file": "مخطط هكرات مزنوقين ITE-1.pdf",
+    "title": "مخطط هكرات مزنوقين — أسبقيات مواد الهندسة المعلوماتية ITE",
+    "author": "محمد العلاوي",
+    "publication_date": "2025-08-01",
+    "term": "F24",
+    "pages": {
+      "common_courses": 2,
+      "AI": 3,
+      "SE": 4,
+      "SCN": 5
+    },
+    "scope": "Course credits, prerequisite arrows, specialization track membership, and registration notes transcribed from the diagram. English names of new courses are translations of the Arabic labels.",
+    "normalization_notes": [
+      "English L1–L5 map to existing catalog IDs GEN301, GEN401, GEN501, GEN502, GEN601.",
+      "The page 2 Operating Systems I lab is printed as BOS501, the same code as the lecture; retained the existing distinct lab ID BOSL501.",
+      "Lab prerequisites follow the independent incoming arrows. Existing concurrent-course requirements were removed because the diagram does not show them.",
+      "Shared SIR601 and SSW601 entries remain in both specialization groups for compatibility."
+    ],
+    "retained_unverified_fields": [
+      "Program degree, total credits, goals and learning outcomes; existing course descriptions and academic levels.",
+      "Existing study_plans are legacy semester schedules, not verified by this prerequisite diagram, and do not cover the new tracks. Diagram columns are prerequisite stages, not semesters.",
+      "Course category summary, admission and transfer rules, grading and examination components.",
+      "Project earned-credit thresholds and durations are retained from the prior JSON; the diagram only confirms course prerequisites."
+    ],
+    "source_caveat": "The authors advise checking university regulations, especially specialization diagrams, because requirements may change."
+  },
+  "app_config": {
+    "defaultFilters": ["general", "basic"],
+    "title": {
+      "en": "ITE Subjects Prerequisite Graph",
+      "ar": "مخطط متطلبات مواد هندسة المعلوماتية"
+    },
+    "subtitle": {
+      "en": "Syrian Virtual University · Bachelor in Information Technology Engineering",
+      "ar": "الجامعة الافتراضية السورية · إجازة في الهندسة المعلوماتية"
+    },
+    "categories": {
+      "general": {
+        "label": {
+          "en": "General",
+          "ar": "عام"
+        },
+        "color": "#4299e1",
+        "stroke": "#2b6cb0"
+      },
+      "basic": {
+        "label": {
+          "en": "Basic",
+          "ar": "أساسي"
+        },
+        "color": "#48bb78",
+        "stroke": "#2f855a"
+      },
+      "SE": {
+        "label": {
+          "en": "Software Engineering",
+          "ar": "هندسة البرمجيات"
+        },
+        "color": "#ed8936",
+        "stroke": "#c05621"
+      },
+      "AI": {
+        "label": {
+          "en": "Artificial Intelligence",
+          "ar": "الذكاء الصنعي"
+        },
+        "color": "#9f7aea",
+        "stroke": "#6b46c1"
+      },
+      "SCN": {
+        "label": {
+          "en": "Systems & Networks",
+          "ar": "النظم والشبكات"
+        },
+        "color": "#e53e3e",
+        "stroke": "#9b2c2c"
+      }
+    },
+    "import": {
+      "coursePattern": "ITE_([A-Z]{2,4}\\d{3,4})_",
+      "aliases": {
+        "ENG_L1": "GEN301",
+        "ENG_L2": "GEN401",
+        "ENG_L3": "GEN501",
+        "ENG_L4": "GEN502",
+        "ENG_L5": "GEN601"
+      },
+      "termPattern": "(?<![A-Z0-9])([SF])(\\d{2})(?![A-Z0-9])",
+      "yearBase": 2000,
+      "terms": {
+        "S": {
+          "order": 0,
+          "label": {
+            "en": "Spring",
+            "ar": "ربيع"
+          }
+        },
+        "F": {
+          "order": 1,
+          "label": {
+            "en": "Fall",
+            "ar": "خريف"
+          }
+        }
+      },
+      "repeatedComponent": "highest",
+      "placement": {
+        "enabled": true,
+        "token": "ENG_PT",
+        "orderedLevels": [
+          "GEN301",
+          "GEN401",
+          "GEN501",
+          "GEN502",
+          "GEN601"
+        ],
+        "thresholds": [
+          {
+            "minGrade": 94,
+            "levelsPassed": 5
+          },
+          {
+            "minGrade": 85,
+            "levelsPassed": 4
+          },
+          {
+            "minGrade": 75,
+            "levelsPassed": 3
+          },
+          {
+            "minGrade": 65,
+            "levelsPassed": 2
+          },
+          {
+            "minGrade": 60,
+            "levelsPassed": 1
+          }
+        ],
+        "source": "Migrated from the previous data.js; not verified by the prerequisite PDF."
+      }
+    },
+    "grading": {
+      "requiredComponents": ["assignment", "final"],
+      "gradeRange": { "minimum": 0, "maximum": 100 },
+      "assignmentWeight": 0.3,
+      "finalWeight": 0.7,
+      "passThreshold": 60,
+      "minimumFinal": 40,
+      "minimumAssignment": null,
+      "source": "Weights and final-exam minimum from additional_info. The practical-part minimum is retained as descriptive information because the catalog does not identify which courses or imported components it applies to."
+    },
+    "eligibility": {
+      "defaultPrerequisitePolicy": "attempted",
+      "completionPolicy": "any_passed",
+      "excludeInProgress": true
+    },
+    "rule_notes": {
+      "en": "Project credit thresholds, grading and placement rules are inherited and were not verified by the prerequisite diagram. Legacy semester plans do not cover the new tracks.",
+      "ar": "شروط نقاط المشاريع وقواعد النجاح وتحديد المستوى موروثة ولم يؤكدها مخطط الأسبقيات. الخطط الفصلية القديمة لا تشمل المسارات الجديدة."
     }
   }
 }

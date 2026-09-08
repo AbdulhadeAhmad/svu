@@ -1,0 +1,110 @@
+/* =====================================================================
+   Import summary in side panel
+   ===================================================================== */
+.import-summary h3 { margin-bottom: 12px; }
+.import-stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; margin-bottom: 16px;
+}
+.import-stat {
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.import-stat::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+}
+.import-stat.passed::before { background: var(--success); }
+.import-stat.failed::before { background: var(--danger); }
+.import-stat.progress::before { background: var(--warning); }
+.import-stat.total::before { background: var(--accent); }
+.import-stat .stat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.import-stat .stat-label { color: var(--text-muted); }
+.import-stat .stat-value { font-weight: 700; margin-left: auto; color: var(--text); font-size: 16px; }
+
+.available-list {
+  max-height: 240px; overflow-y: auto;
+  display: flex; flex-wrap: wrap; gap: 7px;
+  padding: 10px;
+  background: color-mix(in srgb, var(--availability-accent) 8%, var(--surface));
+  border: 1px solid var(--availability-accent);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+.available-list .chip { font-size: 12px; }
+.available-list .chip.cat-chip-inline {
+  padding: 7px 9px;
+  background: var(--availability-bg);
+  color: var(--availability-text);
+  border: 1px solid var(--availability-accent);
+  border-left: 4px solid var(--chip-color, var(--availability-accent));
+  font-weight: 800;
+}
+.available-arrow { font-size: 16px; line-height: 1; }
+.available-list .chip.cat-chip-inline:hover {
+  background: color-mix(in srgb, var(--availability-bg) 85%, white);
+  box-shadow: 0 2px 8px var(--availability-glow);
+  transform: translateY(-1px);
+}
+.available-list .chip.cat-chip-inline .chip-credits {
+  margin-left: 5px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--chip-color, var(--accent)) 25%, transparent);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  opacity: 0.85;
+}
+
+/* Merged category filter chips (legend + filter in one) */
+.cat-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.cat-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  padding: 5px 10px 5px 9px;
+  border-radius: 999px;
+  border: 1.5px solid var(--chip-color, var(--accent));
+  background: color-mix(in srgb, var(--chip-color, var(--accent)) 12%, var(--surface));
+  color: var(--text);
+  cursor: pointer; user-select: none;
+  transition: all 0.15s;
+}
+.cat-chip:hover {
+  background: color-mix(in srgb, var(--chip-color, var(--accent)) 22%, var(--surface));
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--chip-color, var(--accent)) 25%, transparent);
+}
+.cat-chip.active .cat-check { opacity: 1; transform: scale(1); }
+.cat-chip:not(.active) { opacity: 0.5; background: var(--surface); }
+.cat-chip:not(.active):hover { opacity: 0.8; }
+.cat-chip:not(.active) .cat-check { opacity: 0; transform: scale(0.5); }
+.cat-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--chip-color, var(--accent));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--chip-color, var(--accent)) 35%, transparent);
+  flex-shrink: 0;
+}
+.cat-label { line-height: 1; }
+.cat-check {
+  font-size: 11px; font-weight: 700;
+  color: var(--chip-color, var(--accent));
+  transition: all 0.15s;
+}
+
+.summary-actions {
+  display: flex; gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.summary-actions .btn { flex: 1; }

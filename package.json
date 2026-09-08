@@ -1,0 +1,9 @@
+{
+  "name": "svu-course-graph",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/domain.test.js",
+    "test:browser": "python3 -m unittest discover -s tests -v"
+  }
+}

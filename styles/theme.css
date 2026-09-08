@@ -1,0 +1,135 @@
+/* =====================================================================
+   ITE Subjects Prerequisite Graph — stylesheet
+   ===================================================================== */
+
+:root {
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --surface-2: #fafbfd;
+  --border: #e6eaf0;
+  --border-strong: #d1d7e0;
+  --text: #1a2233;
+  --text-muted: #5b6478;
+  --text-subtle: #8b94a7;
+
+  --accent: #3b6ce6;
+  --accent-soft: #eaf0fc;
+  --success: #16a34a;
+  --success-soft: #e7f6ec;
+  --warning: #d97706;
+  --warning-soft: #fef3e2;
+  --danger: #dc2626;
+  --danger-soft: #fdecec;
+
+  --cat-general: #3b82f6;
+  --cat-basic:   #10b981;
+  --cat-SE:      #f59e0b;
+  --cat-AI:      #8b5cf6;
+  --cat-SCN:     #ef4444;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.10), 0 4px 6px -2px rgba(15, 23, 42, 0.05);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Theme-aware accents */
+  --header-grad: linear-gradient(135deg, #1e2a47 0%, #2d4373 60%, #3b5da3 100%);
+  --header-overlay-1: rgba(255,255,255,0.06);
+  --header-overlay-2: rgba(124, 154, 245, 0.18);
+  --logo-grad: linear-gradient(135deg, #6b8df0, #3b6ce6);
+  --grid-dot: rgba(15, 23, 42, 0.06);
+  --node-shadow: rgba(15, 23, 42, 0.08);
+  --node-shadow-hover: rgba(15, 23, 42, 0.18);
+  --badge-bg: rgba(255,255,255,0.85);
+  --grade-pill-bg: rgba(255,255,255,0.92);
+  --grade-pill-color: var(--text);
+  --info-desc-bg: var(--surface-2);
+  --info-head-bg: var(--surface);
+  --status-pill-bg: rgba(255,255,255,0.65);
+  --backdrop: rgba(15, 23, 42, 0.45);
+  --modal-bg: var(--surface);
+  --scrollbar-thumb: #c1c8d4;
+  --scrollbar-track: transparent;
+  --highlight-glow: rgba(59, 108, 230, 0.35);
+  --in-progress-glow: rgba(245, 158, 11, 0.35);
+  --available-glow: rgba(59, 108, 230, 0.18);
+  --availability-accent: #059669;
+  --availability-glow: rgba(5, 150, 105, 0.5);
+  --availability-bg: #d1fae5;
+  --availability-text: #065f46;
+  --empty-icon-bg: linear-gradient(135deg, #eaf0fc, #f5f7fb);
+  --chip-bg: var(--surface);
+  --chip-border: var(--border-strong);
+  --cat-chip-off-bg: var(--surface);
+}
+
+body.dark {
+  --bg: #0d1320;
+  --surface: #161e30;
+  --surface-2: #1f2a40;
+  --border: #2a354b;
+  --border-strong: #3a4663;
+  --text: #e6ebf5;
+  --text-muted: #a3adbf;
+  --text-subtle: #6c7689;
+
+  --accent: #6b8df0;
+  --accent-soft: rgba(107, 141, 240, 0.18);
+  --success: #4ade80;
+  --success-soft: rgba(74, 222, 128, 0.15);
+  --warning: #fbbf24;
+  --warning-soft: rgba(251, 191, 36, 0.18);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.18);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.20);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.35), 0 2px 4px -2px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.50), 0 4px 6px -2px rgba(0, 0, 0, 0.30);
+
+  --header-grad: linear-gradient(135deg, #0c1322 0%, #1a2542 60%, #243561 100%);
+  --header-overlay-1: rgba(255,255,255,0.04);
+  --header-overlay-2: rgba(124, 154, 245, 0.10);
+  --logo-grad: linear-gradient(135deg, #4d6fcf, #2d4ea0);
+  --grid-dot: rgba(255, 255, 255, 0.06);
+  --node-shadow: rgba(0, 0, 0, 0.40);
+  --node-shadow-hover: rgba(0, 0, 0, 0.60);
+  --badge-bg: rgba(255,255,255,0.92);
+  --grade-pill-bg: rgba(15, 23, 42, 0.85);
+  --grade-pill-color: #f1f5fb;
+  --info-desc-bg: #1a2335;
+  --info-head-bg: var(--surface);
+  --status-pill-bg: rgba(15, 23, 42, 0.6);
+  --backdrop: rgba(0, 0, 0, 0.65);
+  --modal-bg: #1a2335;
+  --scrollbar-thumb: #3a4663;
+  --scrollbar-track: transparent;
+  --highlight-glow: rgba(107, 141, 240, 0.55);
+  --in-progress-glow: rgba(251, 191, 36, 0.55);
+  --available-glow: rgba(107, 141, 240, 0.30);
+  --availability-accent: #34d399;
+  --availability-glow: rgba(52, 211, 153, 0.6);
+  --availability-bg: #a7f3d0;
+  --availability-text: #064e3b;
+  --empty-icon-bg: linear-gradient(135deg, #243561, #1a2335);
+  --chip-bg: #1f2a40;
+  --chip-border: #3a4663;
+  --cat-chip-off-bg: #1f2a40;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
